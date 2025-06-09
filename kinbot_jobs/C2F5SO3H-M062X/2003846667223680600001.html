@@ -1,0 +1,170 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 90%;
+                 height: 1000px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+            <div id="config"></div>
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "black", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "2003846667223680600001", "image": "2003846667223680600001_2d/2003846667223680600001_2d.png", "label": "0.0", "shape": "circularImage", "size": 80, "title": "2003846667223680600001"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "black", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "2004328380979804780401", "image": "2003846667223680600001_2d/2004328380979804780401_2d.png", "label": "61.0", "shape": "circularImage", "size": 80, "title": "2004328380979804780401"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "black", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "2003847066703800600001", "image": "2003846667223680600001_2d/2003847066703800600001_2d.png", "label": "8.8", "shape": "circularImage", "size": 80, "title": "2003847066703800600001"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "black", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "2004167628425982700001", "image": "2003846667223680600001_2d/2004167628425982700001_2d.png", "label": "99.8", "shape": "circularImage", "size": 80, "title": "2004167628425982700001"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "black", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "2003885976044371740001", "image": "2003846667223680600001_2d/2003885976044371740001_2d.png", "label": "137.2", "shape": "circularImage", "size": 80, "title": "2003885976044371740001"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "black", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "2003846667223680600001_r12_insertion_R_3_2_5_IRC_R_prod", "image": "2003846667223680600001_2d/2003846667223680600001_r12_insertion_R_3_2_5_IRC_R_prod_2d.png", "label": "68.0", "shape": "circularImage", "size": 80, "title": "2003846667223680600001_r12_insertion_R_3_2_5_IRC_R_prod"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "black", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "2003846667223680600001_r12_insertion_R_5_2_3_IRC_R_prod", "image": "2003846667223680600001_2d/2003846667223680600001_r12_insertion_R_5_2_3_IRC_R_prod_2d.png", "label": "68.0", "shape": "circularImage", "size": 80, "title": "2003846667223680600001_r12_insertion_R_5_2_3_IRC_R_prod"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "black", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "2003846667223680600001_r12_insertion_R_9_1_2_IRC_F_prod", "image": "2003846667223680600001_2d/2003846667223680600001_r12_insertion_R_9_1_2_IRC_F_prod_2d.png", "label": "53.2", "shape": "circularImage", "size": 80, "title": "2003846667223680600001_r12_insertion_R_9_1_2_IRC_F_prod"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "black", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "2003846667223680600001_r13_insertion_ROR_1_2_5_6_IRC_F_prod", "image": "2003846667223680600001_2d/2003846667223680600001_r13_insertion_ROR_1_2_5_6_IRC_F_prod_2d.png", "label": "38.2", "shape": "circularImage", "size": 80, "title": "2003846667223680600001_r13_insertion_ROR_1_2_5_6_IRC_F_prod"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "black", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "2003846667223680600001_r13_insertion_ROR_3_2_5_8_IRC_F_prod", "image": "2003846667223680600001_2d/2003846667223680600001_r13_insertion_ROR_3_2_5_8_IRC_F_prod_2d.png", "label": "34.9", "shape": "circularImage", "size": 80, "title": "2003846667223680600001_r13_insertion_ROR_3_2_5_8_IRC_F_prod"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "black", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "2003846667223680600001_r13_insertion_RSR_9_1_2_5_IRC_R_prod", "image": "2003846667223680600001_2d/2003846667223680600001_r13_insertion_RSR_9_1_2_5_IRC_R_prod_2d.png", "label": "27.8", "shape": "circularImage", "size": 80, "title": "2003846667223680600001_r13_insertion_RSR_9_1_2_5_IRC_R_prod"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "blue", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "1001482381140000000001_1002122340540000000001", "image": "2003846667223680600001_2d/1001482381140000000001_1002122340540000000001_2d.png", "label": "69.4", "shape": "circularImage", "size": 80, "title": "1001482381140000000001_1002122340540000000001"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "blue", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "1502984803620600000001_500620380000000000001", "image": "2003846667223680600001_2d/1502984803620600000001_500620380000000000001_2d.png", "label": "54.0", "shape": "circularImage", "size": 80, "title": "1502984803620600000001_500620380000000000001"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "blue", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "1502823922432230600001_500620380000000000001", "image": "2003846667223680600001_2d/1502823922432230600001_500620380000000000001_2d.png", "label": "40.4", "shape": "circularImage", "size": 80, "title": "1502823922432230600001_500620380000000000001"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "blue", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "500620380000000000001_640960320000000000001_861382320600000000001", "image": "2003846667223680600001_2d/500620380000000000001_640960320000000000001_861382320600000000001_2d.png", "label": "36.2", "shape": "circularImage", "size": 80, "title": "500620380000000000001_640960320000000000001_861382320600000000001"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "blue", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "1803646687765942100001_200200000000000000001", "image": "2003846667223680600001_2d/1803646687765942100001_200200000000000000001_2d.png", "label": "36.6", "shape": "circularImage", "size": 80, "title": "1803646687765942100001_200200000000000000001"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "blue", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "1001482001520000000001_1002122340540000000001", "image": "2003846667223680600001_2d/1001482001520000000001_1002122340540000000001_2d.png", "label": "29.9", "shape": "circularImage", "size": 80, "title": "1001482001520000000001_1002122340540000000001"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "blue", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "1312673532570400000002_690931140000000000002", "image": "2003846667223680600001_2d/1312673532570400000002_690931140000000000002_2d.png", "label": "89.2", "shape": "circularImage", "size": 80, "title": "1312673532570400000002_690931140000000000002"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "blue", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "1813535595952630400002_190000000000000000002", "image": "2003846667223680600001_2d/1813535595952630400002_190000000000000000002_2d.png", "label": "123.1", "shape": "circularImage", "size": 80, "title": "1813535595952630400002_190000000000000000002"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "blue", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "1813535465033480600002_190000000000000000002", "image": "2003846667223680600001_2d/1813535465033480600002_190000000000000000002_2d.png", "label": "113.7", "shape": "circularImage", "size": 80, "title": "1813535465033480600002_190000000000000000002"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "blue", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "1191793072280000000002_811611290340000000002", "image": "2003846667223680600001_2d/1191793072280000000002_811611290340000000002_2d.png", "label": "64.1", "shape": "circularImage", "size": 80, "title": "1191793072280000000002_811611290340000000002"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "blue", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "160000000000000000003_1843365746072630600001", "image": "2003846667223680600001_2d/160000000000000000003_1843365746072630600001_2d.png", "label": "103.4", "shape": "circularImage", "size": 80, "title": "160000000000000000003_1843365746072630600001"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "blue", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "170170000000000000002_1833195415772100000002", "image": "2003846667223680600001_2d/170170000000000000002_1833195415772100000002_2d.png", "label": "87.7", "shape": "circularImage", "size": 80, "title": "170170000000000000002_1833195415772100000002"}, {"borderWidth": 3, "color": {"background": "#FFFFFF", "border": "blue", "highlight": {"background": "#FFFFFF", "border": "#FF00FF"}}, "font": "30", "id": "10000000000000000002_1993676336753150000002", "image": "2003846667223680600001_2d/10000000000000000002_1993676336753150000002_2d.png", "label": "112.4", "shape": "circularImage", "size": 80, "title": "10000000000000000002_1993676336753150000002"}]);
+                  edges = new vis.DataSet([{"arrows": "", "color": {"color": "black", "highlight": "#FF00FF"}, "from": "2003846667223680600001", "title": "109.4 kcal/mol", "to": "2004328380979804780401", "width": 11.638132295719844}, {"arrows": "", "color": {"color": "black", "highlight": "#FF00FF"}, "from": "2003846667223680600001", "title": "91.3 kcal/mol", "to": "2003846667223680600001_r12_insertion_R_3_2_5_IRC_R_prod", "width": 15.159533073929964}, {"arrows": "", "color": {"color": "black", "highlight": "#FF00FF"}, "from": "2003846667223680600001", "title": "107.0 kcal/mol", "to": "2003847066703800600001", "width": 12.11867704280156}, {"arrows": "", "color": {"color": "black", "highlight": "#FF00FF"}, "from": "2003846667223680600001", "title": "91.3 kcal/mol", "to": "2003846667223680600001_r12_insertion_R_5_2_3_IRC_R_prod", "width": 15.155642023346307}, {"arrows": "", "color": {"color": "black", "highlight": "#FF00FF"}, "from": "2003846667223680600001", "title": "122.2 kcal/mol", "to": "2004167628425982700001", "width": 9.149805447470818}, {"arrows": "", "color": {"color": "black", "highlight": "#FF00FF"}, "from": "2003846667223680600001", "title": "117.0 kcal/mol", "to": "2003846667223680600001_r12_insertion_R_9_1_2_IRC_F_prod", "width": 10.175097276264593}, {"arrows": "", "color": {"color": "black", "highlight": "#FF00FF"}, "from": "2003846667223680600001", "title": "107.1 kcal/mol", "to": "2003846667223680600001_r13_insertion_ROR_1_2_5_6_IRC_F_prod", "width": 12.093385214007782}, {"arrows": "", "color": {"color": "black", "highlight": "#FF00FF"}, "from": "2003846667223680600001", "title": "117.5 kcal/mol", "to": "500620380000000000001_640960320000000000001_861382320600000000001", "width": 10.07003891050584}, {"arrows": "", "color": {"color": "black", "highlight": "#FF00FF"}, "from": "2003846667223680600001", "title": "164.1 kcal/mol", "to": "2003885976044371740001", "width": 1.0}, {"arrows": "", "color": {"color": "black", "highlight": "#FF00FF"}, "from": "2003846667223680600001", "title": "61.3 kcal/mol", "to": "2003846667223680600001_r13_insertion_ROR_3_2_5_8_IRC_F_prod", "width": 21.0}, {"arrows": "", "color": {"color": "black", "highlight": "#FF00FF"}, "from": "2003846667223680600001", "title": "103.6 kcal/mol", "to": "2003846667223680600001_r13_insertion_RSR_9_1_2_5_IRC_R_prod", "width": 12.766536964980547}, {"arrows": "", "color": {"color": "gray", "highlight": "#FF00FF"}, "from": "2003846667223680600001_r12_insertion_R_3_2_5_IRC_R_prod", "title": "69.4 kcal/mol", "to": "1001482381140000000001_1002122340540000000001", "width": 19.429961089494164}, {"arrows": "", "color": {"color": "gray", "highlight": "#FF00FF"}, "from": "2003846667223680600001_r12_insertion_R_5_2_3_IRC_R_prod", "title": "69.4 kcal/mol", "to": "1001482381140000000001_1002122340540000000001", "width": 19.429961089494164}, {"arrows": "", "color": {"color": "gray", "highlight": "#FF00FF"}, "from": "2003846667223680600001_r12_insertion_R_9_1_2_IRC_F_prod", "title": "54.0 kcal/mol", "to": "1502984803620600000001_500620380000000000001", "width": 22.428015564202333}, {"arrows": "", "color": {"color": "gray", "highlight": "#FF00FF"}, "from": "2003846667223680600001_r13_insertion_ROR_1_2_5_6_IRC_F_prod", "title": "40.4 kcal/mol", "to": "1502823922432230600001_500620380000000000001", "width": 25.073929961089494}, {"arrows": "", "color": {"color": "gray", "highlight": "#FF00FF"}, "from": "2003846667223680600001_r13_insertion_ROR_3_2_5_8_IRC_F_prod", "title": "36.6 kcal/mol", "to": "1803646687765942100001_200200000000000000001", "width": 25.80350194552529}, {"arrows": "", "color": {"color": "gray", "highlight": "#FF00FF"}, "from": "2003846667223680600001_r13_insertion_RSR_9_1_2_5_IRC_R_prod", "title": "29.9 kcal/mol", "to": "1001482001520000000001_1002122340540000000001", "width": 27.110894941634243}, {"arrows": "", "color": {"color": "gray", "highlight": "#FF00FF"}, "from": "2003846667223680600001", "title": "89.2 kcal/mol", "to": "1312673532570400000002_690931140000000000002", "width": 15.579766536964982}, {"arrows": "", "color": {"color": "gray", "highlight": "#FF00FF"}, "from": "2003846667223680600001", "title": "123.1 kcal/mol", "to": "1813535595952630400002_190000000000000000002", "width": 8.978599221789885}, {"arrows": "", "color": {"color": "gray", "highlight": "#FF00FF"}, "from": "2003846667223680600001", "title": "113.7 kcal/mol", "to": "1813535465033480600002_190000000000000000002", "width": 10.801556420233464}, {"arrows": "", "color": {"color": "gray", "highlight": "#FF00FF"}, "from": "2003846667223680600001", "title": "64.1 kcal/mol", "to": "1191793072280000000002_811611290340000000002", "width": 20.463035019455255}, {"arrows": "", "color": {"color": "gray", "highlight": "#FF00FF"}, "from": "2003846667223680600001", "title": "103.4 kcal/mol", "to": "160000000000000000003_1843365746072630600001", "width": 12.815175097276267}, {"arrows": "", "color": {"color": "gray", "highlight": "#FF00FF"}, "from": "2003846667223680600001", "title": "87.7 kcal/mol", "to": "170170000000000000002_1833195415772100000002", "width": 15.865758754863814}, {"arrows": "", "color": {"color": "gray", "highlight": "#FF00FF"}, "from": "2003846667223680600001", "title": "112.4 kcal/mol", "to": "10000000000000000002_1993676336753150000002", "width": 11.062256809338521}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+                  // if this network requires displaying the configure window,
+                  // put it in its div
+                  options.configure["container"] = document.getElementById("config");
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

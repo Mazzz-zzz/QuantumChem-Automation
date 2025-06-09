@@ -1,0 +1,79 @@
+  Bimolecular  b_11 ! 170170000000000000002_1833195415772100000002
+  Fragment       fr_20 ! 1833195415772100000002 ! [O]=[S](=[O])[C]([F])([F])[C]([F])([F])[F]
+    RRHO
+      Geometry[angstrom]            10
+        C -0.619634 -1.330382 0.193207
+        C 0.041544 0.063644 0.089534
+        F -0.232799 0.602049 -1.090596
+        F -0.400159 0.844472 1.063002
+        S 1.946841 -0.009666 0.249377
+        O 2.213454 -0.254395 1.642044
+        O 2.378949 -0.903779 -0.793647
+        F -0.298163 -2.068875 -0.851710
+        F -0.227656 -1.935450 1.301462
+        F -1.935911 -1.173437 0.225418
+      Core   RigidRotor
+        SymmetryFactor              1.0
+      End
+      Frequencies[1/cm]             0
+       
+
+      ElectronicLevels[1/cm]        1
+            0.    2
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+  Fragment       fr_21 ! 170170000000000000002 ! [H][O]
+    RRHO
+      Geometry[angstrom]            2
+        O 2.235421 1.467720 -0.087663
+        H 2.346052 1.577690 -1.046234
+      Core   RigidRotor
+        SymmetryFactor              1.0
+      End
+      Frequencies[1/cm]             1
+       
+      ElectronicLevels[1/cm]        2
+            0.    2
+          140.    2
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+
+    GroundEnergy[kcal/mol]        87.7
+    End ! Barrierless
+
+  Barrier       {blessname} {wellname} {prodname} 
+    RRHO
+      Stoichiometry C2H1O3S1F5
+        Core PhaseSpaceTheory
+          ! fr_20 ! 1833195415772100000002  [O]=[S](=[O])[C]([F])([F])[C]([F])([F])[F]
+      FragmentGeometry[angstrom]            10
+        C -0.619634 -1.330382 0.193207
+        C 0.041544 0.063644 0.089534
+        F -0.232799 0.602049 -1.090596
+        F -0.400159 0.844472 1.063002
+        S 1.946841 -0.009666 0.249377
+        O 2.213454 -0.254395 1.642044
+        O 2.378949 -0.903779 -0.793647
+        F -0.298163 -2.068875 -0.851710
+        F -0.227656 -1.935450 1.301462
+        F -1.935911 -1.173437 0.225418
+
+          ! fr_21 ! 170170000000000000002  [H][O]
+      FragmentGeometry[angstrom]            2
+        O 2.235421 1.467720 -0.087663
+        H 2.346052 1.577690 -1.046234
+
+          SymmetryFactor         1
+          PotentialPrefactor[au] 0.6
+          PotentialPowerExponent 6. 
+        End ! Core
+      Frequencies[1/cm]             0
+              
+
+        ElectronicLevels[1/cm]      1
+            0.    1 
+        ZeroEnergy[kcal/mol]      87.7 
+    End ! RRHO
+
+!****************************************
+
