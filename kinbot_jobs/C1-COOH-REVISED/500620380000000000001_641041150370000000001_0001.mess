@@ -1,0 +1,71 @@
+  Bimolecular  b_1 ! 500620380000000000001_641041150370000000001
+  Fragment       fr_1 ! 641041150370000000001 ! [H][O][C](=[O])[F]
+    RRHO
+      Geometry[angstrom]            5
+        C 1.143798 0.131398 0.758690
+        O 0.799140 -0.959577 1.014706
+        F 0.777585 1.200235 1.482392
+        O 1.922033 0.504385 -0.243213
+        H 2.051913 1.459250 -0.230842
+      Core   RigidRotor
+        SymmetryFactor              1.0
+      End
+      Frequencies[1/cm]             0
+       
+
+      ElectronicLevels[1/cm]        1
+            0.    1
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+  Fragment       fr_2 ! 500620380000000000001 ! [F][C][F]
+    RRHO
+      Geometry[angstrom]            3
+        C -1.266308 0.118500 -0.853923
+        F -2.387621 -0.171160 -0.277521
+        F -1.143834 -0.767715 -1.788314
+      Core   RigidRotor
+        SymmetryFactor              2.0
+      End
+      Frequencies[1/cm]             0
+       
+
+      ElectronicLevels[1/cm]        1
+            0.    1
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+
+    GroundEnergy[kcal/mol]        54.29
+    End ! Barrierless
+
+  Barrier       {blessname} {wellname} {prodname} 
+    RRHO
+      Stoichiometry C2H1O2F3
+        Core PhaseSpaceTheory
+          ! fr_1 ! 641041150370000000001  [H][O][C](=[O])[F]
+      FragmentGeometry[angstrom]            5
+        C 1.143798 0.131398 0.758690
+        O 0.799140 -0.959577 1.014706
+        F 0.777585 1.200235 1.482392
+        O 1.922033 0.504385 -0.243213
+        H 2.051913 1.459250 -0.230842
+
+          ! fr_2 ! 500620380000000000001  [F][C][F]
+      FragmentGeometry[angstrom]            3
+        C -1.266308 0.118500 -0.853923
+        F -2.387621 -0.171160 -0.277521
+        F -1.143834 -0.767715 -1.788314
+
+          SymmetryFactor         0.8558301475851112
+          PotentialPrefactor[au] 0.6
+          PotentialPowerExponent 6. 
+        End ! Core
+      Frequencies[1/cm]             0
+              
+
+        ElectronicLevels[1/cm]      1
+            0.    1 
+        ZeroEnergy[kcal/mol]      54.29 
+    End ! RRHO
+
+!****************************************
+

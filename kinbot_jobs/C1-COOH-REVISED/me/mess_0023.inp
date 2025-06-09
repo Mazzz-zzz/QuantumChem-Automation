@@ -1,0 +1,1585 @@
+! Energies in this file are computed at the M062X/Def2TZVPP level of theory.
+! **********************
+TemperatureList[K]                      300.0 400.0 500.0 600.0 700.0 800.0 900.0 1000.0 1100.0 1200.0 1300.0 1400.0 1500.0 1600.0 1700.0 1800.0 1900.0 2000.0
+PressureList[torr]                      7.6 76.0 760.0 7600.0 76000.0
+EnergyStepOverTemperature               0.2
+ExcessEnergyOverTemperature             30
+ModelEnergyLimit[kcal/mol]              400
+CalculationMethod                       direct
+ChemicalEigenvalueMax                   0.2
+Reactant                                w_1
+MicroRateOutput micro.out
+MicroEnerMax[kcal/mol] 200.
+MicroEnerMin[kcal/mol] 0.
+MicroEnerStep[kcal/mol] 1.
+Model
+  EnergyRelaxation
+    Exponential
+      Factor[1/cm]                      200
+      Power                             0.85
+      ExponentCutoff                    15
+    End
+  CollisionFrequency
+    LennardJones
+      Epsilons[1/cm]                    7.95 278
+      Sigmas[angstrom]                  2.715 5.5
+      Masses[amu]                       4.0 114.0
+    End
+
+!****************************************
+  Well       w_1 ! 1141903082400600000001 ! [H][O][C](=[O])[C]([F])([F])[F]
+    Species
+      Union ! number of species in union is 3
+        RRHO
+          Geometry[angstrom]            8
+              C 1.567137 0.041882 0.077678
+              O 2.152422 -0.784886 0.690799
+              C 0.016500 0.024264 0.031609
+              F -0.480642 0.138430 1.251805
+              F -0.459003 1.041831 -0.707357
+              F -0.413916 -1.105704 -0.504470
+              O 2.147870 1.024679 -0.603668
+              H 1.494486 1.590861 -1.031677
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             18
+              8.4 244.2 255.4 
+              386.6 423.9 505.4 
+              525.3 591.4 691.8 
+              779.9 813.0 1157.5 
+              1242.7 1256.4 1268.1 
+              1420.2 1939.2 3831.7 
+             
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          -0.09 ! 0.0
+      
+        End ! RRHO
+        RRHO
+          Geometry[angstrom]            8
+              C 1.567233 0.040760 -0.076370
+              O 2.152658 -0.789178 -0.685054
+              C 0.016571 0.023706 -0.030995
+              F -0.458946 1.042943 0.705663
+              F -0.479847 0.135741 -1.251741
+              F -0.414590 -1.105013 0.506980
+              O 2.147820 1.027075 0.600015
+              H 1.494359 1.595176 1.025355
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             18
+              8.3 244.2 255.4 
+              386.6 423.9 505.5 
+              525.8 591.4 691.8 
+              779.9 813.0 1157.5 
+              1242.7 1256.5 1268.1 
+              1420.2 1939.2 3831.6 
+             
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          -0.09 ! 0.0
+      
+        End ! RRHO
+        RRHO
+          Geometry[angstrom]            8
+              C 1.543912 -0.000004 0.000487
+              O 2.198858 -0.991139 0.002706
+              C -0.000034 -0.000027 -0.000047
+              F -0.460870 0.630835 1.077005
+              F -0.460069 0.625517 -1.080547
+              F -0.458614 -1.237130 0.002831
+              O 1.994820 1.249979 -0.001925
+              H 2.961621 1.226245 -0.001598
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             18
+              28.0 227.6 235.1 
+              382.5 420.6 502.3 
+              587.1 588.6 669.4 
+              795.4 812.5 1166.6 
+              1232.8 1236.8 1300.3 
+              1445.3 1914.5 3800.4 
+             
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          -0.09 ! 0.0
+      
+        End ! RRHO
+  
+      End ! Union
+    End ! Species
+
+
+!****************************************
+  Well       w_2 ! 1141903082400600000001_r12_insertion_R_1_3_4_IRC_R_prod ! [F][C][F].[H][O][C](=[O])[F]
+    Species
+      Union ! number of species in union is 0
+        
+      End ! Union
+    End ! Species
+
+
+!****************************************
+  Well       w_3 ! 1141942881381180600001 ! [H][O][C][O][C]([F])([F])[F]
+    Species
+      Union ! number of species in union is 3
+        RRHO
+          Geometry[angstrom]            8
+              C 1.300719 0.244522 -0.238646
+              O -0.000296 0.061728 0.025869
+              C -0.687244 0.668068 1.065926
+              F -0.686534 1.985860 0.954987
+              F -1.931689 0.239517 0.994576
+              F -0.191598 0.333680 2.245496
+              O 1.798300 1.077729 0.638996
+              H 2.731283 1.195299 0.432195
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             18
+              105.7 207.3 228.9 
+              374.7 445.1 549.5 
+              577.1 621.0 723.4 
+              797.3 877.3 1106.4 
+              1176.8 1286.8 1298.3 
+              1358.5 1363.9 3858.3 
+             
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          39.79 ! 0.0
+      
+        End ! RRHO
+        RRHO
+          Geometry[angstrom]            8
+              C 1.280965 0.044549 0.206309
+              O -0.053164 0.013126 0.073187
+              C -0.593845 -1.249781 -0.008664
+              F -0.345132 -1.956447 1.079313
+              F -1.897792 -1.100093 -0.134149
+              F -0.134061 -1.908482 -1.057311
+              O 1.560764 1.314586 0.262463
+              H 2.515207 1.396083 0.359039
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             18
+              108.5 150.9 205.2 
+              430.8 433.3 460.8 
+              617.5 625.4 730.2 
+              739.5 937.6 1138.9 
+              1228.2 1293.0 1304.3 
+              1375.1 1409.3 3860.8 
+             
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          39.79 ! 0.0
+      
+        End ! RRHO
+        RRHO
+          Geometry[angstrom]            8
+              C 1.357042 0.000000 0.000000
+              O 0.000000 0.000000 0.000000
+              C -0.589887 -1.245704 0.000260
+              F -0.259136 -1.935582 1.074810
+              F -1.894692 -1.049239 -0.000957
+              F -0.257248 -1.937204 -1.072647
+              O 1.719084 1.240172 0.000000
+              H 0.963036 1.859071 0.000001
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             18
+              108.6 139.4 202.8 
+              427.4 433.6 457.6 
+              611.5 625.8 741.0 
+              779.3 935.9 1105.8 
+              1212.5 1300.1 1310.1 
+              1372.1 1419.9 3611.0 
+             
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          39.79 ! 0.0
+      
+        End ! RRHO
+  
+      End ! Union
+    End ! Species
+
+
+!****************************************
+  Well       w_4 ! 1141903082400600000001_r12_insertion_R_4_3_1_IRC_R_prod ! [F][C][F].[H][O][C](=[O])[F]
+    Species
+      Union ! number of species in union is 0
+        
+      End ! Union
+    End ! Species
+
+
+!****************************************
+  Well       w_5 ! 1142223813092830600001 ! [H][O]1[O][C]1[C]([F])([F])[F]
+    Species
+      RRHO
+        Geometry[angstrom]            8
+        C 0.907756 -0.225376 0.610969
+        O 1.680903 -0.395230 -0.575606
+        C -0.560154 -0.123544 0.161913
+        F -1.223190 0.679980 0.991204
+        F -0.767758 0.319469 -1.080617
+        F -1.080088 -1.348870 0.246774
+        O 1.553035 0.991017 -0.194793
+        H 2.361967 1.164680 0.317620
+        Core   RigidRotor
+          SymmetryFactor              1.0
+        End
+        Frequencies[1/cm]             0
+       
+
+        ElectronicLevels[1/cm]        1
+          0.    1
+        ZeroEnergy[kcal/mol]          157.29
+      End ! RRHO
+    End ! Species
+
+
+!****************************************
+  Well       w_6 ! 1141903082400600000001_r13_insertion_CO2_3_8_IRC_F_prod ! [H][C]([F])([F])[F].[O]=[C]=[O]
+    Species
+      Union ! number of species in union is 0
+        
+      End ! Union
+    End ! Species
+
+
+!****************************************
+  Well       w_7 ! 1141942801461180600001 ! [H][O][O][C][C]([F])([F])[F]
+    Species
+      Union ! number of species in union is 2
+        RRHO
+          Geometry[angstrom]            8
+              C 0.590693 1.993348 -0.840792
+              O 0.845750 0.064641 0.275113
+              C 1.036361 3.467088 -0.845166
+              F -0.052326 4.223631 -0.745617
+              F 1.875134 3.826556 0.124161
+              F 1.628723 3.711181 -2.010141
+              O 1.158813 1.448795 0.131752
+              H 0.239543 -0.065814 -0.477993
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             18
+              52.6 224.7 238.9 
+              403.1 430.3 442.4 
+              472.0 599.8 605.0 
+              744.0 905.6 989.6 
+              1271.7 1286.1 1304.4 
+              1487.9 1536.8 3693.9 
+             
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          124.73 ! 0.0
+      
+        End ! RRHO
+        RRHO
+          Geometry[angstrom]            8
+              C 2.431048 1.682309 -0.010963
+              O 0.968217 -0.000011 -0.000154
+              C 2.515887 3.222629 -0.006564
+              F 3.174965 3.598429 -1.098153
+              F 1.355853 3.884459 0.013089
+              F 3.207324 3.591045 1.067290
+              O 1.207568 1.421262 0.002296
+              H 0.000035 0.000003 0.008391
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             18
+              49.3 225.6 247.4 
+              290.5 399.8 444.8 
+              461.9 600.0 601.6 
+              726.4 875.4 969.1 
+              1265.9 1271.4 1298.6 
+              1417.3 1534.6 3826.5 
+             
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          124.73 ! 0.0
+      
+        End ! RRHO
+  
+      End ! Union
+    End ! Species
+
+
+!****************************************
+  Bimolecular  b_1 ! 500620380000000000001_641041150370000000001
+  Fragment       fr_1 ! 641041150370000000001 ! [H][O][C](=[O])[F]
+    RRHO
+      Geometry[angstrom]            5
+        C 1.143798 0.131398 0.758690
+        O 0.799140 -0.959577 1.014706
+        F 0.777585 1.200235 1.482392
+        O 1.922033 0.504385 -0.243213
+        H 2.051913 1.459250 -0.230842
+      Core   RigidRotor
+        SymmetryFactor              1.0
+      End
+      Frequencies[1/cm]             0
+       
+
+      ElectronicLevels[1/cm]        1
+            0.    1
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+  Fragment       fr_2 ! 500620380000000000001 ! [F][C][F]
+    RRHO
+      Geometry[angstrom]            3
+        C -1.266308 0.118500 -0.853923
+        F -2.387621 -0.171160 -0.277521
+        F -1.143834 -0.767715 -1.788314
+      Core   RigidRotor
+        SymmetryFactor              2.0
+      End
+      Frequencies[1/cm]             0
+       
+
+      ElectronicLevels[1/cm]        1
+            0.    1
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+
+    GroundEnergy[kcal/mol]        54.44
+    End ! Barrierless
+
+  Barrier       {blessname} {wellname} {prodname} 
+    RRHO
+      Stoichiometry C2H1O2F3
+        Core PhaseSpaceTheory
+          ! fr_1 ! 641041150370000000001  [H][O][C](=[O])[F]
+      FragmentGeometry[angstrom]            5
+        C 1.143798 0.131398 0.758690
+        O 0.799140 -0.959577 1.014706
+        F 0.777585 1.200235 1.482392
+        O 1.922033 0.504385 -0.243213
+        H 2.051913 1.459250 -0.230842
+
+          ! fr_2 ! 500620380000000000001  [F][C][F]
+      FragmentGeometry[angstrom]            3
+        C -1.266308 0.118500 -0.853923
+        F -2.387621 -0.171160 -0.277521
+        F -1.143834 -0.767715 -1.788314
+
+          SymmetryFactor         1.1391948503464635
+          PotentialPrefactor[au] 0.6
+          PotentialPowerExponent 6. 
+        End ! Core
+      Frequencies[1/cm]             0
+              
+
+        ElectronicLevels[1/cm]      1
+            0.    1 
+        ZeroEnergy[kcal/mol]      54.44 
+    End ! RRHO
+
+!****************************************
+
+
+!****************************************
+  Bimolecular  b_2 ! 440560320000000000001_701061740000000000001
+  Fragment       fr_3 ! 440560320000000000001 ! [O]=[C]=[O]
+    RRHO
+      Geometry[angstrom]            3
+        C 2.063312 -0.115223 -0.665953
+        O 2.112305 -0.690609 -1.648215
+        O 2.015196 0.460096 0.316063
+      Core   RigidRotor
+        SymmetryFactor              2.0
+      End
+      Frequencies[1/cm]             0
+       
+
+      ElectronicLevels[1/cm]        1
+            0.    1
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+  Fragment       fr_4 ! 701061740000000000001 ! [H][C]([F])([F])[F]
+    RRHO
+      Geometry[angstrom]            5
+        C -0.993605 0.167598 0.523058
+        F -2.300858 0.134323 0.768607
+        F -0.802941 0.753083 -0.656423
+        F -0.548986 -1.084127 0.446924
+        H -0.471300 0.711240 1.307972
+      Core   RigidRotor
+        SymmetryFactor              3.0
+      End
+      Frequencies[1/cm]             0
+       
+
+      ElectronicLevels[1/cm]        1
+            0.    1
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+
+    GroundEnergy[kcal/mol]        -14.53
+    End ! Barrierless
+
+  Barrier       {blessname} {wellname} {prodname} 
+    RRHO
+      Stoichiometry C2H1O2F3
+        Core PhaseSpaceTheory
+          ! fr_3 ! 440560320000000000001  [O]=[C]=[O]
+      FragmentGeometry[angstrom]            3
+        C 2.063312 -0.115223 -0.665953
+        O 2.112305 -0.690609 -1.648215
+        O 2.015196 0.460096 0.316063
+
+          ! fr_4 ! 701061740000000000001  [H][C]([F])([F])[F]
+      FragmentGeometry[angstrom]            5
+        C -0.993605 0.167598 0.523058
+        F -2.300858 0.134323 0.768607
+        F -0.802941 0.753083 -0.656423
+        F -0.548986 -1.084127 0.446924
+        H -0.471300 0.711240 1.307972
+
+          SymmetryFactor         1.0197528143854253
+          PotentialPrefactor[au] 0.6
+          PotentialPowerExponent 6. 
+        End ! Core
+      Frequencies[1/cm]             0
+              
+
+        ElectronicLevels[1/cm]      1
+            0.    1 
+        ZeroEnergy[kcal/mol]      -14.53 
+    End ! RRHO
+
+!****************************************
+
+
+!****************************************
+  Bimolecular  b_3 ! 160000000000000000003_981622481180600000001
+  Fragment       fr_5 ! 981622481180600000001 ! [H][O][C][C]([F])([F])[F]
+    RRHO
+      Geometry[angstrom]            7
+        C 1.543481 0.000000 0.000000
+        C 0.000000 0.000000 0.000000
+        F -0.587514 1.197417 0.001240
+        F -0.413859 -0.654303 -1.084435
+        F -0.414284 -0.656636 1.082848
+        O 1.903155 1.235709 0.000000
+        H 2.868755 1.286682 -0.000149
+      Core   RigidRotor
+        SymmetryFactor              1.0
+      End
+      Frequencies[1/cm]             0
+       
+
+      ElectronicLevels[1/cm]        1
+            0.    1
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+    Fragment       fr_6 ! 160000000000000000003
+      Atom
+        Name                        O
+        ElectronicLevels[1/cm]      1
+            0.    3
+      End ! Atom
+
+    GroundEnergy[kcal/mol]        168.72
+    End ! Barrierless
+
+  Barrier       {blessname} {wellname} {prodname} 
+    RRHO
+      Stoichiometry C2H1O2F3
+        Core PhaseSpaceTheory
+          ! fr_5 ! 981622481180600000001  [H][O][C][C]([F])([F])[F]
+      FragmentGeometry[angstrom]            7
+        C 1.543481 0.000000 0.000000
+        C 0.000000 0.000000 0.000000
+        F -0.587514 1.197417 0.001240
+        F -0.413859 -0.654303 -1.084435
+        F -0.414284 -0.656636 1.082848
+        O 1.903155 1.235709 0.000000
+        H 2.868755 1.286682 -0.000149
+
+          ! fr_6 ! 160000000000000000003  [O]
+      FragmentGeometry[angstrom]            1
+        O 2.198858 -0.991139 0.002706
+
+          SymmetryFactor         1.748814990855049
+          PotentialPrefactor[au] 0.6
+          PotentialPowerExponent 6. 
+        End ! Core
+      Frequencies[1/cm]             0
+       
+
+        ElectronicLevels[1/cm]      1
+            0.    1 
+        ZeroEnergy[kcal/mol]      168.72 
+    End ! RRHO
+
+!****************************************
+
+
+!****************************************
+  Bimolecular  b_4 ! 450730450170000000002_690931140000000000002
+  Fragment       fr_7 ! 450730450170000000002 ! [H][O][C]=[O]
+    RRHO
+      Geometry[angstrom]            4
+        C 1.569130 -0.004570 0.000507
+        O 2.172318 -1.013511 0.002742
+        O 1.992250 1.245497 -0.001919
+        H 2.965513 1.257665 -0.001659
+      Core   RigidRotor
+        SymmetryFactor              1.0
+      End
+      Frequencies[1/cm]             0
+       
+
+      ElectronicLevels[1/cm]        1
+            0.    2
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+  Fragment       fr_8 ! 690931140000000000002 ! [F][C]([F])[F]
+    RRHO
+      Geometry[angstrom]            4
+        C -0.047158 0.004831 -0.000079
+        F -0.444625 0.632446 1.080897
+        F -0.443820 0.627107 -1.084432
+        F -0.443984 -1.245189 0.002856
+      Core   RigidRotor
+        SymmetryFactor              6.0
+      End
+      Frequencies[1/cm]             0
+       
+
+      ElectronicLevels[1/cm]        1
+            0.    2
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+
+    GroundEnergy[kcal/mol]        90.01
+    End ! Barrierless
+
+  Barrier       {blessname} {wellname} {prodname} 
+    RRHO
+      Stoichiometry C2H1O2F3
+        Core PhaseSpaceTheory
+          ! fr_7 ! 450730450170000000002  [H][O][C]=[O]
+      FragmentGeometry[angstrom]            4
+        C 1.569130 -0.004570 0.000507
+        O 2.172318 -1.013511 0.002742
+        O 1.992250 1.245497 -0.001919
+        H 2.965513 1.257665 -0.001659
+
+          ! fr_8 ! 690931140000000000002  [F][C]([F])[F]
+      FragmentGeometry[angstrom]            4
+        C -0.047158 0.004831 -0.000079
+        F -0.444625 0.632446 1.080897
+        F -0.443820 0.627107 -1.084432
+        F -0.443984 -1.245189 0.002856
+
+          SymmetryFactor         0.8571633904102804
+          PotentialPrefactor[au] 0.6
+          PotentialPowerExponent 6. 
+        End ! Core
+      Frequencies[1/cm]             0
+              
+
+        ElectronicLevels[1/cm]      1
+            0.    1 
+        ZeroEnergy[kcal/mol]      90.01 
+    End ! RRHO
+
+!****************************************
+
+
+!****************************************
+  Bimolecular  b_5 ! 170170000000000000002_971452351050000000002
+  Fragment       fr_9 ! 971452351050000000002 ! [O]=[C][C]([F])([F])[F]
+    RRHO
+      Geometry[angstrom]            6
+        C 1.552319 -0.005050 0.000023
+        O 2.214829 -0.959302 0.003263
+        C -0.013829 -0.012294 -0.000160
+        F -0.441405 0.625270 1.078293
+        F -0.441227 0.620216 -1.081644
+        F -0.507505 -1.240788 0.002661
+      Core   RigidRotor
+        SymmetryFactor              1.0
+      End
+      Frequencies[1/cm]             0
+       
+
+      ElectronicLevels[1/cm]        1
+            0.    2
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+  Fragment       fr_10 ! 170170000000000000002 ! [H][O]
+    RRHO
+      Geometry[angstrom]            2
+        O 1.992805 1.250028 -0.001926
+        H 2.963636 1.226196 -0.001597
+      Core   RigidRotor
+        SymmetryFactor              1.0
+      End
+      Frequencies[1/cm]             1
+       
+      ElectronicLevels[1/cm]        2
+            0.    2
+          140.    2
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+
+    GroundEnergy[kcal/mol]        110.04
+    End ! Barrierless
+
+  Barrier       {blessname} {wellname} {prodname} 
+    RRHO
+      Stoichiometry C2H1O2F3
+        Core PhaseSpaceTheory
+          ! fr_9 ! 971452351050000000002  [O]=[C][C]([F])([F])[F]
+      FragmentGeometry[angstrom]            6
+        C 1.552319 -0.005050 0.000023
+        O 2.214829 -0.959302 0.003263
+        C -0.013829 -0.012294 -0.000160
+        F -0.441405 0.625270 1.078293
+        F -0.441227 0.620216 -1.081644
+        F -0.507505 -1.240788 0.002661
+
+          ! fr_10 ! 170170000000000000002  [H][O]
+      FragmentGeometry[angstrom]            2
+        O 1.992805 1.250028 -0.001926
+        H 2.963636 1.226196 -0.001597
+
+          SymmetryFactor         1.2618381730666728
+          PotentialPrefactor[au] 0.6
+          PotentialPowerExponent 6. 
+        End ! Core
+      Frequencies[1/cm]             0
+              
+
+        ElectronicLevels[1/cm]      1
+            0.    1 
+        ZeroEnergy[kcal/mol]      110.04 
+    End ! RRHO
+
+!****************************************
+
+
+!****************************************
+  Bimolecular  b_6 ! 190000000000000000002_951592011700400000002
+  Fragment       fr_11 ! 951592011700400000002 ! [H][O][C](=[O])[C]([F])[F]
+    RRHO
+      Geometry[angstrom]            7
+        C 1.434563 0.000031 -0.000054
+        O 2.094320 -1.009560 0.000297
+        C 0.000084 0.000037 -0.000953
+        F -0.732240 1.074165 -0.001222
+        F -0.682261 -1.102175 -0.001312
+        O 1.931059 1.251160 0.000297
+        H 2.893124 1.169978 0.000842
+      Core   RigidRotor
+        SymmetryFactor              1.0
+      End
+      Frequencies[1/cm]             0
+       
+
+      ElectronicLevels[1/cm]        1
+            0.    2
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+    Fragment       fr_12 ! 190000000000000000002
+      Atom
+        Name                        F
+        ElectronicLevels[1/cm]      1
+            0.    2
+      End ! Atom
+
+    GroundEnergy[kcal/mol]        116.0
+    End ! Barrierless
+
+  Barrier       {blessname} {wellname} {prodname} 
+    RRHO
+      Stoichiometry C2H1O2F3
+        Core PhaseSpaceTheory
+          ! fr_11 ! 951592011700400000002  [H][O][C](=[O])[C]([F])[F]
+      FragmentGeometry[angstrom]            7
+        C 1.434563 0.000031 -0.000054
+        O 2.094320 -1.009560 0.000297
+        C 0.000084 0.000037 -0.000953
+        F -0.732240 1.074165 -0.001222
+        F -0.682261 -1.102175 -0.001312
+        O 1.931059 1.251160 0.000297
+        H 2.893124 1.169978 0.000842
+
+          ! fr_12 ! 190000000000000000002  [F]
+      FragmentGeometry[angstrom]            1
+        F -0.460870 0.630835 1.077005
+
+          SymmetryFactor         1.1077990281351986
+          PotentialPrefactor[au] 0.6
+          PotentialPowerExponent 6. 
+        End ! Core
+      Frequencies[1/cm]             0
+       
+
+        ElectronicLevels[1/cm]      1
+            0.    1 
+        ZeroEnergy[kcal/mol]      116.0 
+    End ! RRHO
+
+!****************************************
+
+
+!****************************************
+  Bimolecular  b_7 ! 10000000000000000002_1131732952100000000002
+  Fragment       fr_13 ! 1131732952100000000002 ! [O][C](=[O])[C]([F])([F])[F]
+    RRHO
+      Geometry[angstrom]            7
+        C 1.540409 0.005026 -0.006471
+        O 2.205789 -0.927205 -0.323976
+        C -0.014941 0.003048 0.002291
+        F -0.486236 0.800489 0.954388
+        F -0.456315 0.438936 -1.171858
+        F -0.453227 -1.222178 0.201432
+        O 2.022525 1.179916 0.344705
+      Core   RigidRotor
+        SymmetryFactor              1.0
+      End
+      Frequencies[1/cm]             0
+       
+
+      ElectronicLevels[1/cm]        1
+            0.    2
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+    Fragment       fr_14 ! 10000000000000000002
+      Atom
+        Name                        H
+        ElectronicLevels[1/cm]      1
+            0.    2
+      End ! Atom
+
+    GroundEnergy[kcal/mol]        114.81
+    End ! Barrierless
+
+  Barrier       {blessname} {wellname} {prodname} 
+    RRHO
+      Stoichiometry C2H1O2F3
+        Core PhaseSpaceTheory
+          ! fr_13 ! 1131732952100000000002  [O][C](=[O])[C]([F])([F])[F]
+      FragmentGeometry[angstrom]            7
+        C 1.540409 0.005026 -0.006471
+        O 2.205789 -0.927205 -0.323976
+        C -0.014941 0.003048 0.002291
+        F -0.486236 0.800489 0.954388
+        F -0.456315 0.438936 -1.171858
+        F -0.453227 -1.222178 0.201432
+        O 2.022525 1.179916 0.344705
+
+          ! fr_14 ! 10000000000000000002  [H]
+      FragmentGeometry[angstrom]            1
+        H 2.961621 1.226245 -0.001598
+
+          SymmetryFactor         0.9821921925359914
+          PotentialPrefactor[au] 0.6
+          PotentialPowerExponent 6. 
+        End ! Core
+      Frequencies[1/cm]             0
+       
+
+        ElectronicLevels[1/cm]      1
+            0.    1 
+        ZeroEnergy[kcal/mol]      114.81 
+    End ! RRHO
+
+!****************************************
+
+
+!****************************************
+  Barrier       ts_1 w_1 b_1 ! 1141903082400600000001_r12_insertion_R_1_3_4
+    Union ! number of species in union is 2
+        RRHO
+          Geometry[angstrom]            8
+              C 1.770113 -0.035218 0.112616
+              O 2.305096 -0.894343 -0.526380
+              C 0.051288 0.029902 0.006281
+              F 1.366162 -0.363864 1.509338
+              F -0.697005 0.946030 0.454737
+              F -0.608064 -1.026097 -0.198356
+              O 2.154971 1.266816 0.167645
+              H 2.943847 1.328489 -0.382484
+          Core   RigidRotor
+            SymmetryFactor            0.5
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              95.4 137.2 155.7 
+              293.3 396.8 444.0 
+              533.6 598.9 668.6 
+              723.6 780.4 1076.8 
+              1302.6 1405.5 1424.8 
+              1783.9 3855.0
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          76.13 ! 0.0
+          Tunneling   Eckart
+            ImaginaryFrequency[1/cm]  416.12   ! -363.4329
+            CutoffEnergy[kcal/mol]    24.08
+            WellDepth[kcal/mol]       76.13
+            WellDepth[kcal/mol]       24.08
+          End 
+      
+        End ! RRHO
+        RRHO
+          Geometry[angstrom]            8
+              C 1.767505 0.000012 -0.000235
+              O 2.249891 -0.890046 -0.607536
+              C -0.000013 0.000121 -0.000083
+              F 1.352056 -0.269264 1.476549
+              F -0.759317 0.902322 0.481998
+              F -0.626712 -1.092719 -0.090931
+              O 2.174507 1.280850 0.000359
+              H 1.940590 1.697773 0.836238
+          Core   RigidRotor
+            SymmetryFactor            0.5
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              103.4 136.0 156.4 
+              325.7 362.0 406.1 
+              502.1 570.3 656.1 
+              707.1 730.1 1087.2 
+              1261.2 1368.2 1408.9 
+              1898.8 3859.9
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          76.13 ! 0.0
+          Tunneling   Eckart
+            ImaginaryFrequency[1/cm]  416.12   ! -431.8265
+            CutoffEnergy[kcal/mol]    24.08
+            WellDepth[kcal/mol]       76.13
+            WellDepth[kcal/mol]       24.08
+          End 
+      
+        End ! RRHO
+
+    End ! Union
+
+!****************************************
+  Barrier       ts_2 w_1 w_3 ! 1141903082400600000001_r12_insertion_R_2_1_3
+    Union ! number of species in union is 2
+        RRHO
+          Geometry[angstrom]            8
+              C 1.770995 0.147130 -0.074250
+              O 1.239250 -0.310231 -1.124636
+              C -0.006076 0.007094 -0.013425
+              F -0.286455 1.022359 0.825012
+              F -0.930122 0.168327 -0.966906
+              F -0.209171 -1.139669 0.583788
+              O 3.015706 0.542704 -0.206509
+              H 3.342096 0.861863 0.642136
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              80.2 137.1 345.9 
+              412.2 456.5 518.5 
+              584.3 626.2 697.9 
+              740.5 935.5 1045.7 
+              1177.6 1290.7 1342.2 
+              1605.4 3849.6
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          98.52 ! 0.0
+          Tunneling   Eckart
+            ImaginaryFrequency[1/cm]  744.05   ! -772.8703
+            CutoffEnergy[kcal/mol]    58.83
+            WellDepth[kcal/mol]       98.52
+            WellDepth[kcal/mol]       58.83
+          End 
+      
+        End ! RRHO
+        RRHO
+          Geometry[angstrom]            8
+              C 1.804135 -0.001651 0.000397
+              O 1.267852 -0.282869 -1.116747
+              C 0.000107 -0.000238 -0.000036
+              F -0.213991 0.950026 0.914968
+              F -0.878657 0.310604 -0.957100
+              F -0.294527 -1.181520 0.473595
+              O 3.069122 0.298158 -0.000124
+              H 3.406991 0.250199 -0.918387
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              75.7 128.3 338.1 
+              407.1 448.9 515.9 
+              584.7 672.0 724.4 
+              741.6 947.1 1070.7 
+              1213.4 1302.8 1386.3 
+              1563.5 3589.4
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          98.52 ! 0.0
+          Tunneling   Eckart
+            ImaginaryFrequency[1/cm]  744.05   ! -759.9265
+            CutoffEnergy[kcal/mol]    58.83
+            WellDepth[kcal/mol]       98.52
+            WellDepth[kcal/mol]       58.83
+          End 
+      
+        End ! RRHO
+
+    End ! Union
+
+!****************************************
+  Barrier       ts_4 w_1 b_1 ! 1141903082400600000001_r12_insertion_R_4_3_1
+    Union ! number of species in union is 2
+        RRHO
+          Geometry[angstrom]            8
+              C 1.770134 -0.035282 0.112637
+              O 2.305117 -0.894509 -0.526222
+              C 0.051307 0.029809 0.006305
+              F 1.366195 -0.363701 1.509416
+              F -0.696989 0.946006 0.454613
+              F -0.608040 -1.026229 -0.198153
+              O 2.154984 1.266762 0.167449
+              H 2.943852 1.328351 -0.382701
+          Core   RigidRotor
+            SymmetryFactor            0.5
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              99.2 141.1 159.7 
+              297.4 400.9 448.1 
+              537.8 603.0 672.7 
+              727.8 784.6 1080.9 
+              1306.8 1409.7 1429.0 
+              1788.0 3859.1
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          74.5 ! 0.0
+          Tunneling   Eckart
+            ImaginaryFrequency[1/cm]  424.71   ! -363.432
+            CutoffEnergy[kcal/mol]    22.45
+            WellDepth[kcal/mol]       74.5
+            WellDepth[kcal/mol]       22.45
+          End 
+      
+        End ! RRHO
+        RRHO
+          Geometry[angstrom]            8
+              C 1.767594 -0.000106 -0.000120
+              O 2.249950 -0.890217 -0.607367
+              C 0.000076 0.000091 -0.000010
+              F 1.352097 -0.269292 1.476667
+              F -0.759194 0.902353 0.482013
+              F -0.626676 -1.092721 -0.090823
+              O 2.174661 1.280711 0.000423
+              H 1.940738 1.697689 0.836273
+          Core   RigidRotor
+            SymmetryFactor            0.5
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              107.3 140.0 160.3 
+              329.7 366.1 410.1 
+              506.2 574.4 660.3 
+              711.2 734.2 1091.4 
+              1265.3 1372.3 1413.0 
+              1902.9 3864.1
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          74.5 ! 0.0
+          Tunneling   Eckart
+            ImaginaryFrequency[1/cm]  424.71   ! -431.8252
+            CutoffEnergy[kcal/mol]    22.45
+            WellDepth[kcal/mol]       74.5
+            WellDepth[kcal/mol]       22.45
+          End 
+      
+        End ! RRHO
+
+    End ! Union
+
+!****************************************
+  Barrier       ts_5 w_1 w_5 ! 1141903082400600000001_r12_insertion_R_7_1_2
+  RRHO
+    Geometry[angstrom]            8
+        C 1.475206 -0.071342 0.434299
+        O 2.295073 -0.454298 -0.706917
+        C -0.005273 -0.055893 0.089361
+        F -0.634086 0.773207 0.921311
+        F -0.272751 0.352473 -1.156034
+        F -0.506935 -1.277018 0.232289
+        O 2.032784 1.092700 -0.081604
+        H 2.935603 1.144449 0.266207
+    Core   RigidRotor
+      SymmetryFactor            1.0
+    End ! Core
+
+    Frequencies[1/cm]             17
+        86.5 242.5 259.5 
+        401.1 462.7 572.8 
+        603.1 675.0 817.6 
+        871.5 944.9 1162.2 
+        1243.0 1266.5 1305.2 
+        1361.9 3799.0
+  
+    ElectronicLevels[1/cm]        1
+      0.    1
+    ZeroEnergy[kcal/mol]          176.32 ! 
+    Tunneling   Eckart
+      ImaginaryFrequency[1/cm]  1520.42  
+      CutoffEnergy[kcal/mol]    18.86
+      WellDepth[kcal/mol]       176.32
+      WellDepth[kcal/mol]       18.86
+    End 
+
+  End ! RRHO
+
+
+!****************************************
+  Barrier       ts_6 w_1 b_2 ! 1141903082400600000001_r13_insertion_CO2_3_8
+  RRHO
+    Geometry[angstrom]            8
+        C 2.012622 0.222600 -0.307404
+        O 2.170077 -0.294440 -1.315454
+        C -0.075835 0.216016 0.142907
+        F -0.806799 0.687860 1.183116
+        F -0.564911 0.797508 -0.959484
+        F -0.341595 -1.093383 0.054966
+        O 2.382291 0.813018 0.722423
+        H 1.219440 0.743700 0.848528
+    Core   RigidRotor
+      SymmetryFactor            1.0
+    End ! Core
+
+    Frequencies[1/cm]             17
+        52.1 166.5 169.7 
+        249.8 402.6 517.4 
+        541.7 623.3 718.5 
+        753.4 956.2 1143.9 
+        1157.4 1207.5 1360.6 
+        2041.8 2332.3
+  
+    ElectronicLevels[1/cm]        1
+      0.    1
+    ZeroEnergy[kcal/mol]          74.62 ! 
+    Tunneling   Eckart
+      ImaginaryFrequency[1/cm]  1843.79  
+      CutoffEnergy[kcal/mol]    74.62
+      WellDepth[kcal/mol]       74.62
+      WellDepth[kcal/mol]       90.68
+    End 
+
+  End ! RRHO
+
+
+!****************************************
+  Barrier       ts_7 w_1 w_7 ! 1141903082400600000001_r13_insertion_ROR_8_7_1_2
+  RRHO
+    Geometry[angstrom]            8
+        C 1.928729 1.059100 -0.164815
+        O -0.224709 1.055159 0.814015
+        C 3.389827 1.155015 -0.623913
+        F 4.200280 0.937641 0.387532
+        F 3.644479 0.270880 -1.573780
+        F 3.570657 2.375173 -1.092887
+        O 0.980515 0.744399 -0.710729
+        H -1.182619 0.930226 0.873235
+    Core   RigidRotor
+      SymmetryFactor            2.0
+    End ! Core
+
+    Frequencies[1/cm]             17
+        19.2 115.9 177.2 
+        281.0 302.1 417.3 
+        439.9 560.8 583.3 
+        601.7 801.8 878.7 
+        1180.3 1264.1 1287.8 
+        2088.0 3791.6
+  
+    ElectronicLevels[1/cm]        1
+      0.    1
+    ZeroEnergy[kcal/mol]          141.99 ! 
+    Tunneling   Eckart
+      ImaginaryFrequency[1/cm]  272.23  
+      CutoffEnergy[kcal/mol]    17.24
+      WellDepth[kcal/mol]       141.99
+      WellDepth[kcal/mol]       17.24
+    End 
+
+  End ! RRHO
+
+
+!****************************************
+  Barrier       ts_8 w_1 b_3 ! 1141903082400600000001_hom_sci_1_2
+    Union ! number of species in union is 3
+        RRHO
+          Geometry[angstrom]            8
+              C 1.567137 0.041882 0.077678
+              O 2.152422 -0.784886 0.690799
+              C 0.016500 0.024264 0.031609
+              F -0.480642 0.138430 1.251805
+              F -0.459003 1.041831 -0.707357
+              F -0.413916 -1.105704 -0.504470
+              O 2.147870 1.024679 -0.603668
+              H 1.494486 1.590861 -1.031677
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              250.8 262.1 393.4 
+              430.8 512.3 532.2 
+              598.3 698.7 786.8 
+              820.0 1164.6 1249.7 
+              1263.5 1275.1 1427.3 
+              1946.3 3838.8
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          -0.74 ! 0.0
+      ! barrier is submerged -0.7420592993215751 -169.66226969788056
+        End ! RRHO
+        RRHO
+          Geometry[angstrom]            8
+              C 1.567233 0.040760 -0.076370
+              O 2.152658 -0.789178 -0.685054
+              C 0.016571 0.023706 -0.030995
+              F -0.458946 1.042943 0.705663
+              F -0.479847 0.135741 -1.251741
+              F -0.414590 -1.105013 0.506980
+              O 2.147820 1.027075 0.600015
+              H 1.494359 1.595176 1.025355
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              250.9 262.1 393.4 
+              430.8 512.4 532.7 
+              598.3 698.7 786.8 
+              820.0 1164.6 1249.7 
+              1263.5 1275.2 1427.3 
+              1946.3 3838.7
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          -0.74 ! 0.0
+      ! barrier is submerged -0.7420592993215751 -169.66226969788056
+        End ! RRHO
+        RRHO
+          Geometry[angstrom]            8
+              C 1.543912 -0.000004 0.000487
+              O 2.198858 -0.991139 0.002706
+              C -0.000034 -0.000027 -0.000047
+              F -0.460870 0.630835 1.077005
+              F -0.460069 0.625517 -1.080547
+              F -0.458614 -1.237130 0.002831
+              O 1.994820 1.249979 -0.001925
+              H 2.961621 1.226245 -0.001598
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              234.2 241.7 389.3 
+              427.5 509.2 594.0 
+              595.5 676.3 802.4 
+              819.5 1173.6 1239.8 
+              1243.8 1307.4 1452.3 
+              1921.5 3807.5
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          -0.74 ! 0.0
+      ! barrier is submerged -0.7420592993215751 -169.66226969788056
+        End ! RRHO
+
+    End ! Union
+
+!****************************************
+  Barrier       ts_9 w_1 b_4 ! 1141903082400600000001_hom_sci_1_3
+    Union ! number of species in union is 3
+        RRHO
+          Geometry[angstrom]            8
+              C 1.567137 0.041882 0.077678
+              O 2.152422 -0.784886 0.690799
+              C 0.016500 0.024264 0.031609
+              F -0.480642 0.138430 1.251805
+              F -0.459003 1.041831 -0.707357
+              F -0.413916 -1.105704 -0.504470
+              O 2.147870 1.024679 -0.603668
+              H 1.494486 1.590861 -1.031677
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              242.8 254.0 385.2 
+              422.5 504.0 523.9 
+              589.9 690.3 778.4 
+              811.6 1156.1 1241.2 
+              1255.0 1266.6 1418.8 
+              1937.7 3830.2
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          -1.0 ! 0.0
+      ! barrier is submerged -0.9961183124237352 -90.69763328357521
+        End ! RRHO
+        RRHO
+          Geometry[angstrom]            8
+              C 1.567233 0.040760 -0.076370
+              O 2.152658 -0.789178 -0.685054
+              C 0.016571 0.023706 -0.030995
+              F -0.458946 1.042943 0.705663
+              F -0.479847 0.135741 -1.251741
+              F -0.414590 -1.105013 0.506980
+              O 2.147820 1.027075 0.600015
+              H 1.494359 1.595176 1.025355
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              242.8 254.1 385.2 
+              422.5 504.1 524.4 
+              589.9 690.3 778.4 
+              811.6 1156.1 1241.2 
+              1255.0 1266.7 1418.8 
+              1937.8 3830.1
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          -1.0 ! 0.0
+      ! barrier is submerged -0.9961183124237352 -90.69763328357521
+        End ! RRHO
+        RRHO
+          Geometry[angstrom]            8
+              C 1.543912 -0.000004 0.000487
+              O 2.198858 -0.991139 0.002706
+              C -0.000034 -0.000027 -0.000047
+              F -0.460870 0.630835 1.077005
+              F -0.460069 0.625517 -1.080547
+              F -0.458614 -1.237130 0.002831
+              O 1.994820 1.249979 -0.001925
+              H 2.961621 1.226245 -0.001598
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              226.2 233.7 381.1 
+              419.2 500.8 585.6 
+              587.2 667.9 793.9 
+              811.1 1165.1 1231.3 
+              1235.3 1298.9 1443.8 
+              1913.0 3798.9
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          -1.0 ! 0.0
+      ! barrier is submerged -0.9961183124237352 -90.69763328357521
+        End ! RRHO
+
+    End ! Union
+
+!****************************************
+  Barrier       ts_10 w_1 b_5 ! 1141903082400600000001_hom_sci_1_7
+    Union ! number of species in union is 3
+        RRHO
+          Geometry[angstrom]            8
+              C 1.567137 0.041882 0.077678
+              O 2.152422 -0.784886 0.690799
+              C 0.016500 0.024264 0.031609
+              F -0.480642 0.138430 1.251805
+              F -0.459003 1.041831 -0.707357
+              F -0.413916 -1.105704 -0.504470
+              O 2.147870 1.024679 -0.603668
+              H 1.494486 1.590861 -1.031677
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              250.8 262.0 393.3 
+              430.7 512.2 532.1 
+              598.2 698.6 786.7 
+              819.9 1164.5 1249.6 
+              1263.4 1275.1 1427.2 
+              1946.2 3838.7
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          -0.3 ! 0.0
+      ! barrier is submerged -0.2968309876972648 -110.51620158572894
+        End ! RRHO
+        RRHO
+          Geometry[angstrom]            8
+              C 1.567233 0.040760 -0.076370
+              O 2.152658 -0.789178 -0.685054
+              C 0.016571 0.023706 -0.030995
+              F -0.458946 1.042943 0.705663
+              F -0.479847 0.135741 -1.251741
+              F -0.414590 -1.105013 0.506980
+              O 2.147820 1.027075 0.600015
+              H 1.494359 1.595176 1.025355
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              250.8 262.0 393.3 
+              430.7 512.3 532.6 
+              598.2 698.6 786.7 
+              819.9 1164.5 1249.6 
+              1263.4 1275.1 1427.2 
+              1946.2 3838.6
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          -0.3 ! 0.0
+      ! barrier is submerged -0.2968309876972648 -110.51620158572894
+        End ! RRHO
+        RRHO
+          Geometry[angstrom]            8
+              C 1.543912 -0.000004 0.000487
+              O 2.198858 -0.991139 0.002706
+              C -0.000034 -0.000027 -0.000047
+              F -0.460870 0.630835 1.077005
+              F -0.460069 0.625517 -1.080547
+              F -0.458614 -1.237130 0.002831
+              O 1.994820 1.249979 -0.001925
+              H 2.961621 1.226245 -0.001598
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              234.1 241.6 389.2 
+              427.4 509.1 593.9 
+              595.4 676.2 802.3 
+              819.4 1173.5 1239.7 
+              1243.7 1307.3 1452.2 
+              1921.4 3807.4
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          -0.3 ! 0.0
+      ! barrier is submerged -0.2968309876972648 -110.51620158572894
+        End ! RRHO
+
+    End ! Union
+
+!****************************************
+  Barrier       ts_11 w_1 b_6 ! 1141903082400600000001_hom_sci_3_4
+    Union ! number of species in union is 3
+        RRHO
+          Geometry[angstrom]            8
+              C 1.567137 0.041882 0.077678
+              O 2.152422 -0.784886 0.690799
+              C 0.016500 0.024264 0.031609
+              F -0.480642 0.138430 1.251805
+              F -0.459003 1.041831 -0.707357
+              F -0.413916 -1.105704 -0.504470
+              O 2.147870 1.024679 -0.603668
+              H 1.494486 1.590861 -1.031677
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              265.5 276.7 408.1 
+              445.5 527.0 546.9 
+              613.0 713.4 801.5 
+              834.7 1179.3 1264.5 
+              1278.2 1289.9 1442.0 
+              1961.0 3853.5
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          -0.33 ! 0.0
+      ! barrier is submerged -0.3294155770213625 -116.81448737190797
+        End ! RRHO
+        RRHO
+          Geometry[angstrom]            8
+              C 1.567233 0.040760 -0.076370
+              O 2.152658 -0.789178 -0.685054
+              C 0.016571 0.023706 -0.030995
+              F -0.458946 1.042943 0.705663
+              F -0.479847 0.135741 -1.251741
+              F -0.414590 -1.105013 0.506980
+              O 2.147820 1.027075 0.600015
+              H 1.494359 1.595176 1.025355
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              265.5 276.7 408.1 
+              445.5 527.1 547.4 
+              613.0 713.4 801.5 
+              834.7 1179.3 1264.5 
+              1278.2 1289.9 1442.0 
+              1961.0 3853.4
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          -0.33 ! 0.0
+      ! barrier is submerged -0.3294155770213625 -116.81448737190797
+        End ! RRHO
+        RRHO
+          Geometry[angstrom]            8
+              C 1.543912 -0.000004 0.000487
+              O 2.198858 -0.991139 0.002706
+              C -0.000034 -0.000027 -0.000047
+              F -0.460870 0.630835 1.077005
+              F -0.460069 0.625517 -1.080547
+              F -0.458614 -1.237130 0.002831
+              O 1.994820 1.249979 -0.001925
+              H 2.961621 1.226245 -0.001598
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              248.8 256.3 404.0 
+              442.2 523.8 608.7 
+              610.2 691.0 817.1 
+              834.2 1188.3 1254.5 
+              1258.6 1322.1 1467.0 
+              1936.3 3822.2
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          -0.33 ! 0.0
+      ! barrier is submerged -0.3294155770213625 -116.81448737190797
+        End ! RRHO
+
+    End ! Union
+
+!****************************************
+  Barrier       ts_12 w_1 b_7 ! 1141903082400600000001_hom_sci_7_8
+    Union ! number of species in union is 3
+        RRHO
+          Geometry[angstrom]            8
+              C 1.567137 0.041882 0.077678
+              O 2.152422 -0.784886 0.690799
+              C 0.016500 0.024264 0.031609
+              F -0.480642 0.138430 1.251805
+              F -0.459003 1.041831 -0.707357
+              F -0.413916 -1.105704 -0.504470
+              O 2.147870 1.024679 -0.603668
+              H 1.494486 1.590861 -1.031677
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              255.7 266.9 398.2 
+              435.6 517.2 537.1 
+              603.2 703.6 791.7 
+              824.9 1169.5 1254.6 
+              1268.4 1280.0 1432.2 
+              1951.2 3843.7
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          0.24 ! 0.0
+      ! barrier is submerged 0.24147522112940267 -115.04216102579488
+        End ! RRHO
+        RRHO
+          Geometry[angstrom]            8
+              C 1.567233 0.040760 -0.076370
+              O 2.152658 -0.789178 -0.685054
+              C 0.016571 0.023706 -0.030995
+              F -0.458946 1.042943 0.705663
+              F -0.479847 0.135741 -1.251741
+              F -0.414590 -1.105013 0.506980
+              O 2.147820 1.027075 0.600015
+              H 1.494359 1.595176 1.025355
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              255.7 266.9 398.3 
+              435.6 517.2 537.6 
+              603.2 703.6 791.7 
+              824.9 1169.5 1254.6 
+              1268.4 1280.1 1432.2 
+              1951.2 3843.6
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          0.24 ! 0.0
+      ! barrier is submerged 0.24147522112940267 -115.04216102579488
+        End ! RRHO
+        RRHO
+          Geometry[angstrom]            8
+              C 1.543912 -0.000004 0.000487
+              O 2.198858 -0.991139 0.002706
+              C -0.000034 -0.000027 -0.000047
+              F -0.460870 0.630835 1.077005
+              F -0.460069 0.625517 -1.080547
+              F -0.458614 -1.237130 0.002831
+              O 1.994820 1.249979 -0.001925
+              H 2.961621 1.226245 -0.001598
+          Core   RigidRotor
+            SymmetryFactor            1.0
+          End ! Core
+      
+          Frequencies[1/cm]             17
+              239.0 246.5 394.2 
+              432.3 514.0 598.8 
+              600.4 681.2 807.3 
+              824.4 1178.5 1244.7 
+              1248.7 1312.3 1457.2 
+              1926.4 3812.4
+        
+          ElectronicLevels[1/cm]        1
+            0.    1
+          ZeroEnergy[kcal/mol]          0.24 ! 0.0
+      ! barrier is submerged 0.24147522112940267 -115.04216102579488
+        End ! RRHO
+
+    End ! Union
+
+!****************************************
+
+!****************************************
+End ! end kinetics

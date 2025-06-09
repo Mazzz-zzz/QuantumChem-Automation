@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "/home/akhalilov/GaussianJobCreator/AUTOMATION-CENTER/kinbot_jobs_C1-COOH-REVISED/1141903082400600000001_r12_insertion_R_7_1_3_IRC_F.py", line 58, in <module>
+    e = mol_prod.get_potential_energy() # use the Gaussian optimizer
+  File "/home/akhalilov/.conda/envs/kinbot-env/lib/python3.10/site-packages/ase/atoms.py", line 731, in get_potential_energy
+    energy = self._calc.get_potential_energy(self)
+  File "/home/akhalilov/.conda/envs/kinbot-env/lib/python3.10/site-packages/ase/calculators/calculator.py", line 709, in get_potential_energy
+    energy = self.get_property('energy', atoms)
+  File "/home/akhalilov/.conda/envs/kinbot-env/lib/python3.10/site-packages/ase/calculators/calculator.py", line 737, in get_property
+    self.calculate(atoms, [name], system_changes)
+  File "/home/akhalilov/.conda/envs/kinbot-env/lib/python3.10/site-packages/kinbot/ase_modules/calculators/gaussian.py", line 116, in calculate
+    FileIOCalculator.calculate(self, *args, **kwargs)
+  File "/home/akhalilov/.conda/envs/kinbot-env/lib/python3.10/site-packages/ase/calculators/calculator.py", line 938, in calculate
+    raise CalculationFailed(msg)
+ase.calculators.calculator.CalculationFailed: Calculator "gaussian" failed with command "g16 < 1141903082400600000001_r12_insertion_R_7_1_3_IRC_F_prod.com > 1141903082400600000001_r12_insertion_R_7_1_3_IRC_F_prod.log" failed in /home/akhalilov/GaussianJobCreator/AUTOMATION-CENTER/kinbot_jobs_C1-COOH-REVISED with error code 1
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/akhalilov/GaussianJobCreator/AUTOMATION-CENTER/kinbot_jobs_C1-COOH-REVISED/1141903082400600000001_r12_insertion_R_7_1_3_IRC_F.py", line 74, in <module>
+    _, mol_prod.positions = reader_gauss.read_lowest_geom_energy(logfile, mol_prod)
+TypeError: cannot unpack non-iterable NoneType object

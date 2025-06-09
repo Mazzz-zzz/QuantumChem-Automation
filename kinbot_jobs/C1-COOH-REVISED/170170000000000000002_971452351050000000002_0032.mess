@@ -1,0 +1,71 @@
+  Bimolecular  b_5 ! 170170000000000000002_971452351050000000002
+  Fragment       fr_9 ! 971452351050000000002 ! [O]=[C][C]([F])([F])[F]
+    RRHO
+      Geometry[angstrom]            6
+        C 1.552319 -0.005050 0.000023
+        O 2.214829 -0.959302 0.003263
+        C -0.013829 -0.012294 -0.000160
+        F -0.441405 0.625270 1.078293
+        F -0.441227 0.620216 -1.081644
+        F -0.507505 -1.240788 0.002661
+      Core   RigidRotor
+        SymmetryFactor              1.0
+      End
+      Frequencies[1/cm]             0
+       
+
+      ElectronicLevels[1/cm]        1
+            0.    2
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+  Fragment       fr_10 ! 170170000000000000002 ! [H][O]
+    RRHO
+      Geometry[angstrom]            2
+        O 1.992805 1.250028 -0.001926
+        H 2.963636 1.226196 -0.001597
+      Core   RigidRotor
+        SymmetryFactor              1.0
+      End
+      Frequencies[1/cm]             1
+       
+      ElectronicLevels[1/cm]        2
+            0.    2
+          140.    2
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+
+    GroundEnergy[kcal/mol]        110.39
+    End ! Barrierless
+
+  Barrier       {blessname} {wellname} {prodname} 
+    RRHO
+      Stoichiometry C2H1O2F3
+        Core PhaseSpaceTheory
+          ! fr_9 ! 971452351050000000002  [O]=[C][C]([F])([F])[F]
+      FragmentGeometry[angstrom]            6
+        C 1.552319 -0.005050 0.000023
+        O 2.214829 -0.959302 0.003263
+        C -0.013829 -0.012294 -0.000160
+        F -0.441405 0.625270 1.078293
+        F -0.441227 0.620216 -1.081644
+        F -0.507505 -1.240788 0.002661
+
+          ! fr_10 ! 170170000000000000002  [H][O]
+      FragmentGeometry[angstrom]            2
+        O 1.992805 1.250028 -0.001926
+        H 2.963636 1.226196 -0.001597
+
+          SymmetryFactor         1.6045243023969225
+          PotentialPrefactor[au] 0.6
+          PotentialPowerExponent 6. 
+        End ! Core
+      Frequencies[1/cm]             0
+              
+
+        ElectronicLevels[1/cm]      1
+            0.    1 
+        ZeroEnergy[kcal/mol]      110.39 
+    End ! RRHO
+
+!****************************************
+

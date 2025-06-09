@@ -1,0 +1,24 @@
+%mem=28GB
+%chk=1141903082400600000001_ketoenol_2_1_3_4_IRC_F
+%nprocshared=8
+#P M062X/Def2TZVPP ! ASE formatted method and basis
+Symm(None)
+scf(xqc)
+pop(None)
+geom(AllCheck,NoKeepConstants)
+guess(Read)
+irc(RCFC,forward,MaxPoints=100,StepSize=2)
+
+Gaussian input prepared by ASE
+
+0 1
+C                -0.0776830000       -0.2660350000        0.4101540000
+O                -0.9474730000       -1.0665790000       -0.2203920000
+C                 0.1448690000        0.9474340000       -0.0937680000
+F                -0.1449000000       -2.1516040000       -0.7499150000
+F                 0.8677530000        1.8481840000        0.5096290000
+F                -0.4015180000        1.4084820000       -1.1822290000
+O                 0.4578040000       -0.6625480000        1.5824280000
+H                 0.9509070000       -1.4789550000        1.4460850000
+
+
