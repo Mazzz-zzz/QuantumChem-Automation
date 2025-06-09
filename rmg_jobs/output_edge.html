@@ -1,0 +1,946 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<title>RMG Output</title>
+<style type="text/css">
+    body {
+        font-family: sans-serif;
+    }
+    a {
+        color: #993333;
+        text-decoration: none;
+    }
+    a:visited {
+        color: #993333;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+
+    
+    table.speciesList, table.reactionList {
+        border-collapse: collapse;
+        align: center;
+    }
+
+        
+    table.speciesList th, table.reactionList th {
+        text-align: left;
+        vertical-align: top;
+    }
+    table.reaction {
+        border-top: 1px solid #808080;        
+        padding: 10px;
+    }
+    td.reactants {
+        text-align: right;
+    }
+    td.products {
+        text-align: left;
+    }
+    td.reactionArrow {
+        text-align: center;
+        font-size: 16px;
+    }
+    td.species img, td.reactants img, td.products img {
+        vertical-align: middle;
+    }
+    
+    img.surface_species {
+        vertical-align: bottom;
+    }
+    
+    tr.species{
+        border-top: 1px solid #808080;        
+    }
+
+    tr.rxnStart{
+        border-top: 1px solid #808080;        
+    }
+    
+    td, .speciesList th{
+        padding: 10px;
+        }
+    
+    td.index {
+    width: 50px;
+    }
+    
+    .thermo td, .thermo th{
+    padding: 2px;
+    }
+    
+    .kinetics td,  .kinetics th {
+    padding: 2px;
+    }
+    
+    tr.kinetics {
+        font-size: small;
+    }
+    .KineticsData {
+        # border: 1px solid gray;
+    }
+    .KineticsData th {
+        width: 15em;
+        word-wrap: none;
+    }
+    .KineticsData td {
+        width: 3em;
+    }
+    
+    .chemkin, .KineticsData_repr {
+       white-space: pre-wrap;
+       font-size: x-small;
+       font-family: "Andale Mono", monospace;
+    }
+    
+    .energy {
+        font-size: small;
+    }
+    
+    .thermoComment {
+       white-space: pre-wrap;
+       font-size: small;
+       font-family: "Andale Mono", monospace;
+    }
+    .hide_kinetics .kinetics{
+       display: none !important;
+    }
+    .hide_chemkin .chemkin{
+       display: none !important;
+    }
+    .hide_reaction{
+       display: none !important;
+    }
+    .hide_energy .energy{
+       display: none !important;
+    }
+    .hide_thermoComment .thermoComment{
+       display: none !important;
+    }
+
+           
+</style>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="../../../external/jquery.min.js"></script>
+<script type="text/javascript">
+function updateFamily(family) {
+    if (family.checked) {
+        $("."+family.value).show();
+    } else {
+        $("."+family.value).hide();
+    }
+}
+function updateDetails(type) {
+    if (type.checked) {
+        $("."+type.value).show();
+    } else {
+        $("."+type.value).hide();
+    }
+}
+function checkAllFamilies() {
+    $("#familySelector").find("[name='family']").each(function() { this.checked = true; updateFamily(this); });
+    return false;
+}
+function uncheckAllFamilies() {
+    $("#familySelector").find("[name='family']").each(function() { this.checked = false; updateFamily(this); });
+    return false;
+}
+function checkAllDetails() {
+    $("#familySelector").find("[name='detail']").each(function() { this.checked = true; updateDetails(this); });
+    return false;
+}
+function uncheckAllDetails() {
+    $("#familySelector").find("[name='detail']").each(function() { this.checked = false; updateDetails(this); });
+    return false;
+}
+
+function updateFamilyDetails() {
+    $("#familySelector").find("[name='family']").each(function() { 
+        updateDetails(this); });
+    return false;
+}
+function updateReactionDetails() {
+    $("#familySelector").find("[name='detail']").each(function() { 
+        updateDetails(this); });
+    return false;
+}
+
+function updateThermoDetails(type) {
+    if (type.checked) {
+        $(".thermoComment").removeClass("hide_"+type.value);
+    } else {
+        $(".thermoComment").addClass("hide_"+type.value);
+    }
+}
+
+function uncheckThermoDetails() {
+    $("#thermoSelector").find("[name='detail']").each(function() { this.checked = false; updateThermoDetails(this); });
+    return false;
+}
+
+function resetReactionFilter() {
+    $.each($(".reaction"), function() {
+        $(this).removeClass("hide_reaction");
+    });
+}
+
+function submitReactionFilter(){
+    resetReactionFilter();
+    _r1 = $("#reactant1").val().toLowerCase();
+    _r2 = $("#reactant2").val().toLowerCase();
+    _p1 = $("#product1").val().toLowerCase();
+    _p2 = $("#product2").val().toLowerCase();
+    $.each($(".reaction"), function() {
+        _rxnRow = this;
+        _matched = false;
+        _rxn_spc_list = [""];
+        _reactants = _rxnRow.getElementsByClassName('reactants');
+        $.each($(_reactants).find("a"), function() {
+            _a = this;
+            $.each($(_a).find("img"), function() {
+                _spec = this;
+                _rxn_spc_list.push(_spec.getAttribute("alt").toLowerCase());
+          
+            });
+        });
+        _products = _rxnRow.getElementsByClassName('products');
+        $.each($(_products).find("a"), function() {
+            _a = this;
+            $.each($(_a).find("img"), function() {
+                _spec = this;
+                _rxn_spc_list.push(_spec.getAttribute("alt").toLowerCase());
+            
+            });
+        });
+
+        if(_rxn_spc_list.indexOf(_r1) != -1 && _rxn_spc_list.indexOf(_r2) != -1 &&_rxn_spc_list.indexOf(_p1) != -1 && _rxn_spc_list.indexOf(_p2) != -1){
+            _matched = true
+        }
+        if(_matched == true)
+        $(_rxnRow).removeClass("hide_reaction");
+        else
+        $(_rxnRow).addClass("hide_reaction");
+
+     });
+}
+
+$(document).ready(function() {
+    uncheckThermoDetails();
+    checkAllFamilies();
+    uncheckAllDetails();
+});
+</script>
+</head>
+
+<body>
+
+<h1>RMG Output</h1>
+
+<h2>Species (6)</h2>
+
+<form id='thermoSelector' action="">
+<input type="checkbox" id="thermoComment" name="detail" value="thermoComment" onclick="updateThermoDetails(this);" checked="false"><label for="thermoComment"><b>Show Thermo Details</b></label><br>
+</form>
+
+
+<table class="speciesList" hide_thermoComment>
+<tr><th>Index</th><th>Thermo<br> H298 (kcal/mol), S298 (cal/mol*K), Cp (cal/mol*K)</th><th>Structure</th><th>Label</th><th>SMILES</th><th>MW<br> (g/mol)</th></tr>
+
+
+<tr class="species">
+    <td class="index" valign="top">
+    3.</td>
+    
+    
+ <td class="thermo" valign="top">
+ 
+
+        <table class="thermo" align="left">
+            <tr>
+                <th>H298</th>
+                <th>S298</th>
+                <th>Cp300</th>
+                <th>Cp500</th>
+                <th>Cp1000</th>
+                <th>Cp1500</th>
+            </tr>
+            <tr>
+                <td>
+                                    
+                18.90
+                 </td>
+                <td>
+                37.90
+                </td>
+                <td>5.44</td>
+                <td>5.28</td>
+                <td>5.08</td>
+                <td>5.03</td>
+            </tr>
+<tr><td colspan="6" class="thermoComment">
+<div id="thermoComment" class="thermoComment">Thermo library: fluorine</div>
+</td></tr>
+        </table>
+    
+  
+
+ </td>
+    
+    <td class="structure" valign="top"><a href=http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20F%20u1%20p3%20c0%0A><img src="species/F(3).png" alt="F(3)" title="F(3)"></a></td>
+    <td class="label" valign="top">F(3)</td>
+    <td class="SMILES" valign="top">[F]</td>
+    
+  <td class="MW" valign="top">19.00</td>
+    
+</tr>
+
+
+<tr class="species">
+    <td class="index" valign="top">
+    2.</td>
+    
+    
+ <td class="thermo" valign="top">
+ 
+
+        <table class="thermo" align="left">
+            <tr>
+                <th>H298</th>
+                <th>S298</th>
+                <th>Cp300</th>
+                <th>Cp500</th>
+                <th>Cp1000</th>
+                <th>Cp1500</th>
+            </tr>
+            <tr>
+                <td>
+                                    
+                35.11
+                 </td>
+                <td>
+                46.36
+                </td>
+                <td>9.20</td>
+                <td>10.75</td>
+                <td>14.08</td>
+                <td>16.29</td>
+            </tr>
+<tr><td colspan="6" class="thermoComment">
+<div id="thermoComment" class="thermoComment">Thermo library: fluorine</div>
+</td></tr>
+        </table>
+    
+  
+
+ </td>
+    
+    <td class="structure" valign="top"><a href=http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20C%20u1%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%0A2%20H%20u0%20p0%20c0%20%7B1%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B1%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B1%2CS%7D%0A><img src="species/CH3(2).png" alt="CH3(2)" title="CH3(2)"></a></td>
+    <td class="label" valign="top">CH3(2)</td>
+    <td class="SMILES" valign="top">[CH3]</td>
+    
+  <td class="MW" valign="top">15.03</td>
+    
+</tr>
+
+
+<tr class="species">
+    <td class="index" valign="top">
+    6.</td>
+    
+    
+ <td class="thermo" valign="top">
+ 
+
+        <table class="thermo" align="left">
+            <tr>
+                <th>H298</th>
+                <th>S298</th>
+                <th>Cp300</th>
+                <th>Cp500</th>
+                <th>Cp1000</th>
+                <th>Cp1500</th>
+            </tr>
+            <tr>
+                <td>
+                                    
+                93.56
+                 </td>
+                <td>
+                46.64
+                </td>
+                <td>8.34</td>
+                <td>8.91</td>
+                <td>10.50</td>
+                <td>11.68</td>
+            </tr>
+<tr><td colspan="6" class="thermoComment">
+<div id="thermoComment" class="thermoComment">Thermo library: primaryThermoLibrary</div>
+</td></tr>
+        </table>
+    
+  
+
+ </td>
+    
+    <td class="structure" valign="top"><a href=http://rmg.mit.edu/database/molecule/multiplicity%203%0A1%20C%20u2%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%0A2%20H%20u0%20p0%20c0%20%7B1%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B1%2CS%7D%0A><img src="species/CH2(T)(6).png" alt="CH2(T)(6)" title="CH2(T)(6)"></a></td>
+    <td class="label" valign="top">CH2(T)(6)</td>
+    <td class="SMILES" valign="top">[CH2]</td>
+    
+  <td class="MW" valign="top">14.03</td>
+    
+</tr>
+
+
+<tr class="species">
+    <td class="index" valign="top">
+    7.</td>
+    
+    
+ <td class="thermo" valign="top">
+ 
+
+        <table class="thermo" align="left">
+            <tr>
+                <th>H298</th>
+                <th>S298</th>
+                <th>Cp300</th>
+                <th>Cp500</th>
+                <th>Cp1000</th>
+                <th>Cp1500</th>
+            </tr>
+            <tr>
+                <td>
+                                    
+                54.63
+                 </td>
+                <td>
+                53.76
+                </td>
+                <td>8.76</td>
+                <td>10.06</td>
+                <td>11.69</td>
+                <td>12.06</td>
+            </tr>
+<tr><td colspan="6" class="thermoComment">
+<div id="thermoComment" class="thermoComment">Thermo library: fluorine + radical(CH2_triplet)</div>
+</td></tr>
+        </table>
+    
+  
+
+ </td>
+    
+    <td class="structure" valign="top"><a href=http://rmg.mit.edu/database/molecule/multiplicity%203%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u2%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A><img src="species/[CH]F(7).png" alt="CHF(7)" title="CHF(7)"></a></td>
+    <td class="label" valign="top">CHF(7)</td>
+    <td class="SMILES" valign="top">[CH]F</td>
+    
+  <td class="MW" valign="top">32.02</td>
+    
+</tr>
+
+
+<tr class="species">
+    <td class="index" valign="top">
+    10.</td>
+    
+    
+ <td class="thermo" valign="top">
+ 
+
+        <table class="thermo" align="left">
+            <tr>
+                <th>H298</th>
+                <th>S298</th>
+                <th>Cp300</th>
+                <th>Cp500</th>
+                <th>Cp1000</th>
+                <th>Cp1500</th>
+            </tr>
+            <tr>
+                <td>
+                                    
+                -10.70
+                 </td>
+                <td>
+                66.91
+                </td>
+                <td>13.89</td>
+                <td>19.19</td>
+                <td>27.37</td>
+                <td>31.23</td>
+            </tr>
+<tr><td colspan="6" class="thermoComment">
+<div id="thermoComment" class="thermoComment">Thermo library: fluorine</div>
+</td></tr>
+        </table>
+    
+  
+
+ </td>
+    
+    <td class="structure" valign="top"><a href=http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%0A3%20C%20u1%20p0%20c0%20%7B2%2CS%7D%20%7B6%2CS%7D%20%7B7%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A6%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A7%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A><img src="species/CH2F-CH2(10).png" alt="C2H4F(10)" title="C2H4F(10)"></a></td>
+    <td class="label" valign="top">C2H4F(10)</td>
+    <td class="SMILES" valign="top">[CH2]CF</td>
+    
+  <td class="MW" valign="top">47.05</td>
+    
+</tr>
+
+
+<tr class="species">
+    <td class="index" valign="top">
+    11.</td>
+    
+    
+ <td class="thermo" valign="top">
+ 
+
+        <table class="thermo" align="left">
+            <tr>
+                <th>H298</th>
+                <th>S298</th>
+                <th>Cp300</th>
+                <th>Cp500</th>
+                <th>Cp1000</th>
+                <th>Cp1500</th>
+            </tr>
+            <tr>
+                <td>
+                                    
+                -57.01
+                 </td>
+                <td>
+                70.11
+                </td>
+                <td>16.63</td>
+                <td>21.82</td>
+                <td>28.65</td>
+                <td>31.37</td>
+            </tr>
+<tr><td colspan="6" class="thermoComment">
+<div id="thermoComment" class="thermoComment">Thermo library: fluorine</div>
+</td></tr>
+        </table>
+    
+  
+
+ </td>
+    
+    <td class="structure" valign="top"><a href=http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B3%2CS%7D%0A2%20F%20u0%20p3%20c0%20%7B4%2CS%7D%0A3%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%20%7B6%2CS%7D%0A4%20C%20u1%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%20%7B7%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A6%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A7%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A><img src="species/CH2F-CHF(11).png" alt="C2H3F2(11)" title="C2H3F2(11)"></a></td>
+    <td class="label" valign="top">C2H3F2(11)</td>
+    <td class="SMILES" valign="top">F[CH]CF</td>
+    
+  <td class="MW" valign="top">65.04</td>
+    
+</tr>
+
+</table>
+
+<h2>Reactions (9)</h2>
+
+<form id='familySelector' action="">
+<h4>Reaction families:</h4>
+    <input type="checkbox" id="Birad_R_Recombination" name="family" value="Birad_R_Recombination" checked="checked" onclick="updateFamily(this);"><label for="Birad_R_Recombination">Birad_R_Recombination (2 rxns)</label><br>
+    <input type="checkbox" id="H_Abstraction" name="family" value="H_Abstraction" checked="checked" onclick="updateFamily(this);"><label for="H_Abstraction">H_Abstraction (4 rxns)</label><br>
+    <input type="checkbox" id="R_Recombination" name="family" value="R_Recombination" checked="checked" onclick="updateFamily(this);"><label for="R_Recombination">R_Recombination (3 rxns)</label><br>
+
+<a href="javascript:checkAllFamilies();" onclick="checkAllFamilies()">check all</a> &nbsp; &nbsp; <a href="javascript:uncheckAllFamilies();" onclick="uncheckAllFamilies();">uncheck all</a><br>
+
+<h4>Reaction Details:</h4>
+<input type="checkbox" id="kinetics" name="detail" value="kinetics" onclick="updateDetails(this);"><label for="kinetics">Kinetics</label><br>
+<input type="checkbox" id="energy" name="detail" value="energy" onclick="updateDetails(this);"><label for="energy">Heats of Reaction</label><br>
+<input type="checkbox" id="chemkin" name="detail" value="chemkin" onclick="updateDetails(this);"><label for="chemkin">Chemkin strings</label><br>
+<a href="javascript:checkAllDetails();" onclick="checkAllDetails()">check all</a> &nbsp; &nbsp; <a href="javascript:uncheckAllDetails();" onclick="uncheckAllDetails();">uncheck all</a>
+</form>
+
+<h4>Reaction Filter:</h4>
+
+<form id="reactionFilter">
+  Reactant 1: <input type="text" id="reactant1" value=""> &nbsp;
+  Reactant 2: <input type="text" id="reactant2" value=""> &nbsp;
+  Product 1: <input type="text" id="product1" value=""> &nbsp;
+  Product 2: <input type="text" id="product2" value=""><br><br>
+
+  
+</form>
+
+<input type="button" onclick="submitReactionFilter()" value="Search"> &nbsp;
+<input type="button" onclick="resetReactionFilter()" value="Clear Filter"> 
+
+<h4>Reaction List:</h4>
+
+<table class="reactionList">
+<thead>
+<tr><th>Index</th><th colspan="3" style="text-align: center;">Reaction</th><th>Family</th></tr>
+</thead>
+
+<tbody class="reaction">
+<tr class="R_Recombination rxnStart">
+    <td class="index"><a href="http://rmg.mit.edu/database/kinetics/reaction/reactant1%3Dmultiplicity%202%0A1%20F%20u1%20p3%20c0%0A__reactant2%3Dmultiplicity%202%0A1%20C%20u1%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%0A2%20H%20u0%20p0%20c0%20%7B1%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B1%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B1%2CS%7D%0A__product1%3D1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A" title="Search on RMG website" class="searchlink">1.</a></td>
+    <td class="reactants"><a href="http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20F%20u1%20p3%20c0%0A"><img src="species/F(3).png" alt="F(3)" title="F(3), MW = 19.00 g/mol" ></a> + <a href="http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20C%20u1%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%0A2%20H%20u0%20p0%20c0%20%7B1%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B1%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B1%2CS%7D%0A"><img src="species/CH3(2).png" alt="CH3(2)" title="CH3(2), MW = 15.03 g/mol" ></a></td>
+    <td class="reactionArrow">&hArr;</td>
+    <td class="products"><a href="http://rmg.mit.edu/database/molecule/1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A"><img src="species/CH3F-V1(1).png" alt="CH3F-V1(1)" title="CH3F-V1(1), MW = 34.03 g/mol" ></a></td>
+    <td class="family">R_Recombination</td>
+</tr>
+<tr class="kinetics R_Recombination hide_kinetics">
+    <td></td>
+    <td colspan="4"><table class="KineticsData">
+<tr class="KineticsData_Tdata"><th>T/[K]</th>
+<td>500</td><td>1000</td><td>1500</td><td>2000</td>
+</tr><tr class="KineticsData_kdata"><th>log<sub>10</sub>(k/[mole,m,s])
+    <td>+6.9</td><td>+7.1</td><td>+7.2</td><td>+7.3</td>
+</tr></table><span class='KineticsData_repr'>Arrhenius(A=(199626,'m^3/(mol*s)'), n=0.610916, Ea=(0,'kJ/mol'), T0=(1,'K'), Tmin=(300,'K'), Tmax=(1500,'K'), uncertainty=RateUncertainty(mu=0.0324341459036, var=0.917134149564, Tref=1000.0, N=50, correlation='Root_N-1R->H_N-1CNOS->N_N-1COS->O_1CS->C_N-1C-inRing',), comment="""BM rule fitted to 2 training reactions at node Root_N-1R->H_N-1CNOS->N_N-1COS->O_1CS->C_N-1C-inRing
+    Total Standard Deviation in ln(k): 2.00136989945
+Exact match found for rate rule [Root_N-1R->H_N-1CNOS->N_N-1COS->O_1CS->C_N-1C-inRing]
+Euclidian distance = 0
+family: R_Recombination""")</span></td>
+</tr>
+<tr class="energy R_Recombination hide_energy">
+    <td></td>
+    <td colspan="3"><b>H298 (kcal/mol)</b> = -109.62
+    <br><b>S298 (cal/mol*K)</b> = -30.96
+    <br><b>G298 (kcal/mol)</b> = -100.39</td>
+    <td></td>
+</tr>
+<tr class="chemkin R_Recombination hide_chemkin">
+    <td></td>
+    <td colspan="4">! Template reaction: R_Recombination
+! Flux pairs: CH3(2), CH3F-V1(1); F(3), CH3F-V1(1); 
+! BM rule fitted to 2 training reactions at node Root_N-1R->H_N-1CNOS->N_N-1COS->O_1CS->C_N-1C-inRing
+!     Total Standard Deviation in ln(k): 2.00136989945
+! Exact match found for rate rule [Root_N-1R->H_N-1CNOS->N_N-1COS->O_1CS->C_N-1C-inRing]
+! Euclidian distance = 0
+! family: R_Recombination
+F(3)+CH3(2)=CH3F-V1(1)                              1.996260e+11 0.611     0.000    
+</td>
+</tr>
+</tbody>
+
+<tbody class="reaction">
+<tr class="Birad_R_Recombination rxnStart">
+    <td class="index"><a href="http://rmg.mit.edu/database/kinetics/reaction/reactant1%3Dmultiplicity%202%0A1%20F%20u1%20p3%20c0%0A__reactant2%3Dmultiplicity%203%0A1%20C%20u2%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%0A2%20H%20u0%20p0%20c0%20%7B1%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B1%2CS%7D%0A__product1%3Dmultiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u1%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A" title="Search on RMG website" class="searchlink">3.</a></td>
+    <td class="reactants"><a href="http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20F%20u1%20p3%20c0%0A"><img src="species/F(3).png" alt="F(3)" title="F(3), MW = 19.00 g/mol" ></a> + <a href="http://rmg.mit.edu/database/molecule/multiplicity%203%0A1%20C%20u2%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%0A2%20H%20u0%20p0%20c0%20%7B1%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B1%2CS%7D%0A"><img src="species/CH2(T)(6).png" alt="CH2(T)(6)" title="CH2(T)(6), MW = 14.03 g/mol" ></a></td>
+    <td class="reactionArrow">&hArr;</td>
+    <td class="products"><a href="http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u1%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A"><img src="species/CH2F(4).png" alt="CH2F(4)" title="CH2F(4), MW = 33.02 g/mol" ></a></td>
+    <td class="family">Birad_R_Recombination</td>
+</tr>
+<tr class="kinetics Birad_R_Recombination hide_kinetics">
+    <td></td>
+    <td colspan="4"><table class="KineticsData">
+<tr class="KineticsData_Tdata"><th>T/[K]</th>
+<td>500</td><td>1000</td><td>1500</td><td>2000</td>
+</tr><tr class="KineticsData_kdata"><th>log<sub>10</sub>(k/[mole,m,s])
+    <td>-0.0</td><td>+2.8</td><td>+3.6</td><td>+4.1</td>
+</tr></table><span class='KineticsData_repr'>Arrhenius(A=(3.22604e+07,'m^3/(mol*s)'), n=-0.594572, Ea=(56.8079,'kJ/mol'), T0=(1,'K'), comment="""Estimated using an average for rate rule [Y_rad;Birad]
+Euclidian distance = 0
+family: Birad_R_Recombination""")</span></td>
+</tr>
+<tr class="energy Birad_R_Recombination hide_energy">
+    <td></td>
+    <td colspan="3"><b>H298 (kcal/mol)</b> = -120.26
+    <br><b>S298 (cal/mol*K)</b> = -28.53
+    <br><b>G298 (kcal/mol)</b> = -111.76</td>
+    <td></td>
+</tr>
+<tr class="chemkin Birad_R_Recombination hide_chemkin">
+    <td></td>
+    <td colspan="4">! Template reaction: Birad_R_Recombination
+! Flux pairs: F(3), CH2F(4); CH2(T)(6), CH2F(4); 
+! Estimated using an average for rate rule [Y_rad;Birad]
+! Euclidian distance = 0
+! family: Birad_R_Recombination
+F(3)+CH2(T)(6)=CH2F(4)                              3.226042e+13 -0.595    13.577   
+</td>
+</tr>
+</tbody>
+
+<tbody class="reaction">
+<tr class="Birad_R_Recombination rxnStart">
+    <td class="index"><a href="http://rmg.mit.edu/database/kinetics/reaction/reactant1%3Dmultiplicity%202%0A1%20H%20u1%20p0%20c0%0A__reactant2%3Dmultiplicity%203%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u2%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A__product1%3Dmultiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u1%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A" title="Search on RMG website" class="searchlink">4.</a></td>
+    <td class="reactants"><a href="http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20H%20u1%20p0%20c0%0A"><img src="species/H(5).png" alt="H(5)" title="H(5), MW = 1.01 g/mol" ></a> + <a href="http://rmg.mit.edu/database/molecule/multiplicity%203%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u2%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A"><img src="species/[CH]F(7).png" alt="CHF(7)" title="CHF(7), MW = 32.02 g/mol" ></a></td>
+    <td class="reactionArrow">&hArr;</td>
+    <td class="products"><a href="http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u1%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A"><img src="species/CH2F(4).png" alt="CH2F(4)" title="CH2F(4), MW = 33.02 g/mol" ></a></td>
+    <td class="family">Birad_R_Recombination</td>
+</tr>
+<tr class="kinetics Birad_R_Recombination hide_kinetics">
+    <td></td>
+    <td colspan="4"><table class="KineticsData">
+<tr class="KineticsData_Tdata"><th>T/[K]</th>
+<td>500</td><td>1000</td><td>1500</td><td>2000</td>
+</tr><tr class="KineticsData_kdata"><th>log<sub>10</sub>(k/[mole,m,s])
+    <td>+7.0</td><td>+7.0</td><td>+7.0</td><td>+7.0</td>
+</tr></table><span class='KineticsData_repr'>Arrhenius(A=(1e+07,'m^3/(mol*s)'), n=0, Ea=(0,'kJ/mol'), T0=(1,'K'), comment="""Estimated using an average for rate rule [H_rad;Birad]
+Euclidian distance = 0
+family: Birad_R_Recombination""")</span></td>
+</tr>
+<tr class="energy Birad_R_Recombination hide_energy">
+    <td></td>
+    <td colspan="3"><b>H298 (kcal/mol)</b> = -114.53
+    <br><b>S298 (cal/mol*K)</b> = -25.17
+    <br><b>G298 (kcal/mol)</b> = -107.03</td>
+    <td></td>
+</tr>
+<tr class="chemkin Birad_R_Recombination hide_chemkin">
+    <td></td>
+    <td colspan="4">! Template reaction: Birad_R_Recombination
+! Flux pairs: H(5), CH2F(4); CHF(7), CH2F(4); 
+! Estimated using an average for rate rule [H_rad;Birad]
+! Euclidian distance = 0
+! family: Birad_R_Recombination
+H(5)+CHF(7)=CH2F(4)                                 1.000000e+13 0.000     0.000    
+</td>
+</tr>
+</tbody>
+
+<tbody class="reaction">
+<tr class="H_Abstraction rxnStart">
+    <td class="index"><a href="http://rmg.mit.edu/database/kinetics/reaction/reactant1%3D1%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A2%20H%20u0%20p0%20c0%20%7B1%2CS%7D%0A__reactant2%3Dmultiplicity%203%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u2%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A__product1%3Dmultiplicity%202%0A1%20H%20u1%20p0%20c0%0A__product2%3Dmultiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u1%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A" title="Search on RMG website" class="searchlink">7.</a></td>
+    <td class="reactants"><a href="http://rmg.mit.edu/database/molecule/1%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A2%20H%20u0%20p0%20c0%20%7B1%2CS%7D%0A"><img src="species/H2(8).png" alt="H2(8)" title="H2(8), MW = 2.02 g/mol" ></a> + <a href="http://rmg.mit.edu/database/molecule/multiplicity%203%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u2%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A"><img src="species/[CH]F(7).png" alt="CHF(7)" title="CHF(7), MW = 32.02 g/mol" ></a></td>
+    <td class="reactionArrow">&hArr;</td>
+    <td class="products"><a href="http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20H%20u1%20p0%20c0%0A"><img src="species/H(5).png" alt="H(5)" title="H(5), MW = 1.01 g/mol" ></a> + <a href="http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u1%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A"><img src="species/CH2F(4).png" alt="CH2F(4)" title="CH2F(4), MW = 33.02 g/mol" ></a></td>
+    <td class="family">H_Abstraction</td>
+</tr>
+<tr class="kinetics H_Abstraction hide_kinetics">
+    <td></td>
+    <td colspan="4"><table class="KineticsData">
+<tr class="KineticsData_Tdata"><th>T/[K]</th>
+<td>500</td><td>1000</td><td>1500</td><td>2000</td>
+</tr><tr class="KineticsData_kdata"><th>log<sub>10</sub>(k/[mole,m,s])
+    <td>-1.9</td><td>+3.0</td><td>+4.6</td><td>+5.5</td>
+</tr></table><span class='KineticsData_repr'>Arrhenius(A=(231776,'m^3/(mol*s)'), n=0.75, Ea=(89.2238,'kJ/mol'), T0=(1,'K'), comment="""Estimated using an average for rate rule [H2;Y_1centerbirad]
+Euclidian distance = 0
+Multiplied by reaction path degeneracy 2.0
+family: H_Abstraction""")</span></td>
+</tr>
+<tr class="energy H_Abstraction hide_energy">
+    <td></td>
+    <td colspan="3"><b>H298 (kcal/mol)</b> = -10.33
+    <br><b>S298 (cal/mol*K)</b> = -1.57
+    <br><b>G298 (kcal/mol)</b> = -9.86</td>
+    <td></td>
+</tr>
+<tr class="chemkin H_Abstraction hide_chemkin">
+    <td></td>
+    <td colspan="4">! Template reaction: H_Abstraction
+! Flux pairs: H2(8), H(5); CHF(7), CH2F(4); 
+! Estimated using an average for rate rule [H2;Y_1centerbirad]
+! Euclidian distance = 0
+! Multiplied by reaction path degeneracy 2.0
+! family: H_Abstraction
+H2(8)+CHF(7)=H(5)+CH2F(4)                           2.317758e+11 0.750     21.325   
+</td>
+</tr>
+</tbody>
+
+<tbody class="reaction">
+<tr class="H_Abstraction rxnStart">
+    <td class="index"><a href="http://rmg.mit.edu/database/kinetics/reaction/reactant1%3Dmultiplicity%203%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u2%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A__reactant2%3D1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A__product1%3Dmultiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u1%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A__product2%3Dmultiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u1%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A" title="Search on RMG website" class="searchlink">9.</a></td>
+    <td class="reactants"><a href="http://rmg.mit.edu/database/molecule/multiplicity%203%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u2%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A"><img src="species/[CH]F(7).png" alt="CHF(7)" title="CHF(7), MW = 32.02 g/mol" ></a> + <a href="http://rmg.mit.edu/database/molecule/1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A"><img src="species/CH3F-V1(1).png" alt="CH3F-V1(1)" title="CH3F-V1(1), MW = 34.03 g/mol" ></a></td>
+    <td class="reactionArrow">&hArr;</td>
+    <td class="products"><a href="http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u1%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A"><img src="species/CH2F(4).png" alt="CH2F(4)" title="CH2F(4), MW = 33.02 g/mol" ></a> + <a href="http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u1%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A"><img src="species/CH2F(4).png" alt="CH2F(4)" title="CH2F(4), MW = 33.02 g/mol" ></a></td>
+    <td class="family">H_Abstraction</td>
+</tr>
+<tr class="kinetics H_Abstraction hide_kinetics">
+    <td></td>
+    <td colspan="4"><table class="KineticsData">
+<tr class="KineticsData_Tdata"><th>T/[K]</th>
+<td>500</td><td>1000</td><td>1500</td><td>2000</td>
+</tr><tr class="KineticsData_kdata"><th>log<sub>10</sub>(k/[mole,m,s])
+    <td>+2.5</td><td>+5.0</td><td>+5.9</td><td>+6.4</td>
+</tr></table><span class='KineticsData_repr'>Arrhenius(A=(1087,'m^3/(mol*s)'), n=1.34875, Ea=(40.4345,'kJ/mol'), T0=(1,'K'), comment="""Estimated using an average for rate rule [C_pri;Y_1centerbirad]
+Euclidian distance = 0
+Multiplied by reaction path degeneracy 3.0
+family: H_Abstraction""")</span></td>
+</tr>
+<tr class="energy H_Abstraction hide_energy">
+    <td></td>
+    <td colspan="3"><b>H298 (kcal/mol)</b> = -14.62
+    <br><b>S298 (cal/mol*K)</b> = 4.95
+    <br><b>G298 (kcal/mol)</b> = -16.10</td>
+    <td></td>
+</tr>
+<tr class="chemkin H_Abstraction hide_chemkin">
+    <td></td>
+    <td colspan="4">! Template reaction: H_Abstraction
+! Flux pairs: CH3F-V1(1), CH2F(4); CHF(7), CH2F(4); 
+! Estimated using an average for rate rule [C_pri;Y_1centerbirad]
+! Euclidian distance = 0
+! Multiplied by reaction path degeneracy 3.0
+! family: H_Abstraction
+CHF(7)+CH3F-V1(1)=CH2F(4)+CH2F(4)                   1.087002e+09 1.349     9.664    
+</td>
+</tr>
+</tbody>
+
+<tbody class="reaction">
+<tr class="R_Recombination rxnStart">
+    <td class="index"><a href="http://rmg.mit.edu/database/kinetics/reaction/reactant1%3Dmultiplicity%202%0A1%20F%20u1%20p3%20c0%0A__reactant2%3Dmultiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%0A3%20C%20u1%20p0%20c0%20%7B2%2CS%7D%20%7B6%2CS%7D%20%7B7%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A6%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A7%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A__product1%3D1%20F%20u0%20p3%20c0%20%7B3%2CS%7D%0A2%20F%20u0%20p3%20c0%20%7B4%2CS%7D%0A3%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%20%7B6%2CS%7D%0A4%20C%20u0%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%20%7B7%2CS%7D%20%7B8%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A6%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A7%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A8%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A" title="Search on RMG website" class="searchlink">11.</a></td>
+    <td class="reactants"><a href="http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20F%20u1%20p3%20c0%0A"><img src="species/F(3).png" alt="F(3)" title="F(3), MW = 19.00 g/mol" ></a> + <a href="http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%0A3%20C%20u1%20p0%20c0%20%7B2%2CS%7D%20%7B6%2CS%7D%20%7B7%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A6%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A7%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A"><img src="species/CH2F-CH2(10).png" alt="C2H4F(10)" title="C2H4F(10), MW = 47.05 g/mol" ></a></td>
+    <td class="reactionArrow">&hArr;</td>
+    <td class="products"><a href="http://rmg.mit.edu/database/molecule/1%20F%20u0%20p3%20c0%20%7B3%2CS%7D%0A2%20F%20u0%20p3%20c0%20%7B4%2CS%7D%0A3%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%20%7B6%2CS%7D%0A4%20C%20u0%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%20%7B7%2CS%7D%20%7B8%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A6%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A7%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A8%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A"><img src="species/CH2F-CH2F(9).png" alt="C2H4F2(9)" title="C2H4F2(9), MW = 66.05 g/mol" ></a></td>
+    <td class="family">R_Recombination</td>
+</tr>
+<tr class="kinetics R_Recombination hide_kinetics">
+    <td></td>
+    <td colspan="4"><table class="KineticsData">
+<tr class="KineticsData_Tdata"><th>T/[K]</th>
+<td>500</td><td>1000</td><td>1500</td><td>2000</td>
+</tr><tr class="KineticsData_kdata"><th>log<sub>10</sub>(k/[mole,m,s])
+    <td>+6.9</td><td>+7.1</td><td>+7.2</td><td>+7.3</td>
+</tr></table><span class='KineticsData_repr'>Arrhenius(A=(199626,'m^3/(mol*s)'), n=0.610916, Ea=(0,'kJ/mol'), T0=(1,'K'), Tmin=(300,'K'), Tmax=(1500,'K'), uncertainty=RateUncertainty(mu=0.0324341459036, var=0.917134149564, Tref=1000.0, N=50, correlation='Root_N-1R->H_N-1CNOS->N_N-1COS->O_1CS->C_N-1C-inRing',), comment="""BM rule fitted to 2 training reactions at node Root_N-1R->H_N-1CNOS->N_N-1COS->O_1CS->C_N-1C-inRing
+    Total Standard Deviation in ln(k): 2.00136989945
+Exact match found for rate rule [Root_N-1R->H_N-1CNOS->N_N-1COS->O_1CS->C_N-1C-inRing]
+Euclidian distance = 0
+family: R_Recombination""")</span></td>
+</tr>
+<tr class="energy R_Recombination hide_energy">
+    <td></td>
+    <td colspan="3"><b>H298 (kcal/mol)</b> = -111.91
+    <br><b>S298 (cal/mol*K)</b> = -36.30
+    <br><b>G298 (kcal/mol)</b> = -101.09</td>
+    <td></td>
+</tr>
+<tr class="chemkin R_Recombination hide_chemkin">
+    <td></td>
+    <td colspan="4">! Template reaction: R_Recombination
+! Flux pairs: C2H4F(10), C2H4F2(9); F(3), C2H4F2(9); 
+! BM rule fitted to 2 training reactions at node Root_N-1R->H_N-1CNOS->N_N-1COS->O_1CS->C_N-1C-inRing
+!     Total Standard Deviation in ln(k): 2.00136989945
+! Exact match found for rate rule [Root_N-1R->H_N-1CNOS->N_N-1COS->O_1CS->C_N-1C-inRing]
+! Euclidian distance = 0
+! family: R_Recombination
+F(3)+C2H4F(10)=C2H4F2(9)                            1.996260e+11 0.611     0.000    
+</td>
+</tr>
+</tbody>
+
+<tbody class="reaction">
+<tr class="R_Recombination rxnStart">
+    <td class="index"><a href="http://rmg.mit.edu/database/kinetics/reaction/reactant1%3Dmultiplicity%202%0A1%20H%20u1%20p0%20c0%0A__reactant2%3Dmultiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B3%2CS%7D%0A2%20F%20u0%20p3%20c0%20%7B4%2CS%7D%0A3%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%20%7B6%2CS%7D%0A4%20C%20u1%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%20%7B7%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A6%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A7%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A__product1%3D1%20F%20u0%20p3%20c0%20%7B3%2CS%7D%0A2%20F%20u0%20p3%20c0%20%7B4%2CS%7D%0A3%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%20%7B6%2CS%7D%0A4%20C%20u0%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%20%7B7%2CS%7D%20%7B8%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A6%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A7%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A8%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A" title="Search on RMG website" class="searchlink">12.</a></td>
+    <td class="reactants"><a href="http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20H%20u1%20p0%20c0%0A"><img src="species/H(5).png" alt="H(5)" title="H(5), MW = 1.01 g/mol" ></a> + <a href="http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B3%2CS%7D%0A2%20F%20u0%20p3%20c0%20%7B4%2CS%7D%0A3%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%20%7B6%2CS%7D%0A4%20C%20u1%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%20%7B7%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A6%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A7%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A"><img src="species/CH2F-CHF(11).png" alt="C2H3F2(11)" title="C2H3F2(11), MW = 65.04 g/mol" ></a></td>
+    <td class="reactionArrow">&hArr;</td>
+    <td class="products"><a href="http://rmg.mit.edu/database/molecule/1%20F%20u0%20p3%20c0%20%7B3%2CS%7D%0A2%20F%20u0%20p3%20c0%20%7B4%2CS%7D%0A3%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%20%7B6%2CS%7D%0A4%20C%20u0%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%20%7B7%2CS%7D%20%7B8%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A6%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A7%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A8%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A"><img src="species/CH2F-CH2F(9).png" alt="C2H4F2(9)" title="C2H4F2(9), MW = 66.05 g/mol" ></a></td>
+    <td class="family">R_Recombination</td>
+</tr>
+<tr class="kinetics R_Recombination hide_kinetics">
+    <td></td>
+    <td colspan="4"><table class="KineticsData">
+<tr class="KineticsData_Tdata"><th>T/[K]</th>
+<td>500</td><td>1000</td><td>1500</td><td>2000</td>
+</tr><tr class="KineticsData_kdata"><th>log<sub>10</sub>(k/[mole,m,s])
+    <td>+8.1</td><td>+8.1</td><td>+8.1</td><td>+8.1</td>
+</tr></table><span class='KineticsData_repr'>Arrhenius(A=(7.82867e+07,'m^3/(mol*s)'), n=0.0631113, Ea=(0,'kJ/mol'), T0=(1,'K'), Tmin=(300,'K'), Tmax=(1500,'K'), uncertainty=RateUncertainty(mu=0.0175378549852, var=0.221368827459, Tref=1000.0, N=8, correlation='Root_1R->H_N-2R->S_N-2CHNO->H_N-2CNO-inRing_Ext-2CNO-R_N-Sp-3R!H=2CCNNOO_N-2CNO->O_3R!H->C_Sp-3C-2CN',), comment="""BM rule fitted to 2 training reactions at node Root_1R->H_N-2R->S_N-2CHNO->H_N-2CNO-inRing_Ext-2CNO-R_N-Sp-3R!H=2CCNNOO_N-2CNO->O_3R!H->C_Sp-3C-2CN
+    Total Standard Deviation in ln(k): 0.987289785558
+Exact match found for rate rule [Root_1R->H_N-2R->S_N-2CHNO->H_N-2CNO-inRing_Ext-2CNO-R_N-Sp-3R!H=2CCNNOO_N-2CNO->O_3R!H->C_Sp-3C-2CN]
+Euclidian distance = 0
+family: R_Recombination""")</span></td>
+</tr>
+<tr class="energy R_Recombination hide_energy">
+    <td></td>
+    <td colspan="3"><b>H298 (kcal/mol)</b> = -98.81
+    <br><b>S298 (cal/mol*K)</b> = -29.02
+    <br><b>G298 (kcal/mol)</b> = -90.16</td>
+    <td></td>
+</tr>
+<tr class="chemkin R_Recombination hide_chemkin">
+    <td></td>
+    <td colspan="4">! Template reaction: R_Recombination
+! Flux pairs: C2H3F2(11), C2H4F2(9); H(5), C2H4F2(9); 
+! BM rule fitted to 2 training reactions at node Root_1R->H_N-2R->S_N-2CHNO->H_N-2CNO-inRing_Ext-2CNO-R_N-Sp-3R!H=2CCNNOO_N-2CNO->O_3R!H->C_Sp-3C-2CN
+!     Total Standard Deviation in ln(k): 0.987289785558
+! Exact match found for rate rule [Root_1R->H_N-2R->S_N-2CHNO->H_N-2CNO-inRing_Ext-2CNO-R_N-Sp-3R!H=2CCNNOO_N-2CNO->O_3R!H->C_Sp-3C-2CN]
+! Euclidian distance = 0
+! family: R_Recombination
+H(5)+C2H3F2(11)=C2H4F2(9)                           7.828670e+13 0.063     0.000    
+</td>
+</tr>
+</tbody>
+
+<tbody class="reaction">
+<tr class="H_Abstraction rxnStart">
+    <td class="index"><a href="http://rmg.mit.edu/database/kinetics/reaction/reactant1%3Dmultiplicity%202%0A1%20H%20u1%20p0%20c0%0A__reactant2%3D1%20F%20u0%20p3%20c0%20%7B3%2CS%7D%0A2%20F%20u0%20p3%20c0%20%7B4%2CS%7D%0A3%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%20%7B6%2CS%7D%0A4%20C%20u0%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%20%7B7%2CS%7D%20%7B8%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A6%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A7%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A8%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A__product1%3D1%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A2%20H%20u0%20p0%20c0%20%7B1%2CS%7D%0A__product2%3Dmultiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B3%2CS%7D%0A2%20F%20u0%20p3%20c0%20%7B4%2CS%7D%0A3%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%20%7B6%2CS%7D%0A4%20C%20u1%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%20%7B7%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A6%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A7%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A" title="Search on RMG website" class="searchlink">13.</a></td>
+    <td class="reactants"><a href="http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20H%20u1%20p0%20c0%0A"><img src="species/H(5).png" alt="H(5)" title="H(5), MW = 1.01 g/mol" ></a> + <a href="http://rmg.mit.edu/database/molecule/1%20F%20u0%20p3%20c0%20%7B3%2CS%7D%0A2%20F%20u0%20p3%20c0%20%7B4%2CS%7D%0A3%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%20%7B6%2CS%7D%0A4%20C%20u0%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%20%7B7%2CS%7D%20%7B8%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A6%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A7%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A8%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A"><img src="species/CH2F-CH2F(9).png" alt="C2H4F2(9)" title="C2H4F2(9), MW = 66.05 g/mol" ></a></td>
+    <td class="reactionArrow">&hArr;</td>
+    <td class="products"><a href="http://rmg.mit.edu/database/molecule/1%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A2%20H%20u0%20p0%20c0%20%7B1%2CS%7D%0A"><img src="species/H2(8).png" alt="H2(8)" title="H2(8), MW = 2.02 g/mol" ></a> + <a href="http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B3%2CS%7D%0A2%20F%20u0%20p3%20c0%20%7B4%2CS%7D%0A3%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%20%7B6%2CS%7D%0A4%20C%20u1%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%20%7B7%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A6%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A7%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A"><img src="species/CH2F-CHF(11).png" alt="C2H3F2(11)" title="C2H3F2(11), MW = 65.04 g/mol" ></a></td>
+    <td class="family">H_Abstraction</td>
+</tr>
+<tr class="kinetics H_Abstraction hide_kinetics">
+    <td></td>
+    <td colspan="4"><table class="KineticsData">
+<tr class="KineticsData_Tdata"><th>T/[K]</th>
+<td>500</td><td>1000</td><td>1500</td><td>2000</td>
+</tr><tr class="KineticsData_kdata"><th>log<sub>10</sub>(k/[mole,m,s])
+    <td>+4.9</td><td>+6.4</td><td>+7.2</td><td>+7.6</td>
+</tr></table><span class='KineticsData_repr'>Arrhenius(A=(0.00324386,'m^3/(mol*s)'), n=3.14702, Ea=(10.1404,'kJ/mol'), T0=(1,'K'), comment="""Estimated using an average for rate rule [C_sec;H_rad]
+Euclidian distance = 0
+Multiplied by reaction path degeneracy 4.0
+family: H_Abstraction""")</span></td>
+</tr>
+<tr class="energy H_Abstraction hide_energy">
+    <td></td>
+    <td colspan="3"><b>H298 (kcal/mol)</b> = -5.40
+    <br><b>S298 (cal/mol*K)</b> = 5.41
+    <br><b>G298 (kcal/mol)</b> = -7.01</td>
+    <td></td>
+</tr>
+<tr class="chemkin H_Abstraction hide_chemkin">
+    <td></td>
+    <td colspan="4">! Template reaction: H_Abstraction
+! Flux pairs: H(5), H2(8); C2H4F2(9), C2H3F2(11); 
+! Estimated using an average for rate rule [C_sec;H_rad]
+! Euclidian distance = 0
+! Multiplied by reaction path degeneracy 4.0
+! family: H_Abstraction
+H(5)+C2H4F2(9)=H2(8)+C2H3F2(11)                     3.243863e+03 3.147     2.424    
+</td>
+</tr>
+</tbody>
+
+<tbody class="reaction">
+<tr class="H_Abstraction rxnStart">
+    <td class="index"><a href="http://rmg.mit.edu/database/kinetics/reaction/reactant1%3Dmultiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u1%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A__reactant2%3D1%20F%20u0%20p3%20c0%20%7B3%2CS%7D%0A2%20F%20u0%20p3%20c0%20%7B4%2CS%7D%0A3%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%20%7B6%2CS%7D%0A4%20C%20u0%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%20%7B7%2CS%7D%20%7B8%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A6%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A7%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A8%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A__product1%3D1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A__product2%3Dmultiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B3%2CS%7D%0A2%20F%20u0%20p3%20c0%20%7B4%2CS%7D%0A3%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%20%7B6%2CS%7D%0A4%20C%20u1%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%20%7B7%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A6%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A7%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A" title="Search on RMG website" class="searchlink">14.</a></td>
+    <td class="reactants"><a href="http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u1%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A"><img src="species/CH2F(4).png" alt="CH2F(4)" title="CH2F(4), MW = 33.02 g/mol" ></a> + <a href="http://rmg.mit.edu/database/molecule/1%20F%20u0%20p3%20c0%20%7B3%2CS%7D%0A2%20F%20u0%20p3%20c0%20%7B4%2CS%7D%0A3%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%20%7B6%2CS%7D%0A4%20C%20u0%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%20%7B7%2CS%7D%20%7B8%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A6%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A7%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A8%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A"><img src="species/CH2F-CH2F(9).png" alt="C2H4F2(9)" title="C2H4F2(9), MW = 66.05 g/mol" ></a></td>
+    <td class="reactionArrow">&hArr;</td>
+    <td class="products"><a href="http://rmg.mit.edu/database/molecule/1%20F%20u0%20p3%20c0%20%7B2%2CS%7D%0A2%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B3%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%0A3%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A4%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B2%2CS%7D%0A"><img src="species/CH3F-V1(1).png" alt="CH3F-V1(1)" title="CH3F-V1(1), MW = 34.03 g/mol" ></a> + <a href="http://rmg.mit.edu/database/molecule/multiplicity%202%0A1%20F%20u0%20p3%20c0%20%7B3%2CS%7D%0A2%20F%20u0%20p3%20c0%20%7B4%2CS%7D%0A3%20C%20u0%20p0%20c0%20%7B1%2CS%7D%20%7B4%2CS%7D%20%7B5%2CS%7D%20%7B6%2CS%7D%0A4%20C%20u1%20p0%20c0%20%7B2%2CS%7D%20%7B3%2CS%7D%20%7B7%2CS%7D%0A5%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A6%20H%20u0%20p0%20c0%20%7B3%2CS%7D%0A7%20H%20u0%20p0%20c0%20%7B4%2CS%7D%0A"><img src="species/CH2F-CHF(11).png" alt="C2H3F2(11)" title="C2H3F2(11), MW = 65.04 g/mol" ></a></td>
+    <td class="family">H_Abstraction</td>
+</tr>
+<tr class="kinetics H_Abstraction hide_kinetics">
+    <td></td>
+    <td colspan="4"><table class="KineticsData">
+<tr class="KineticsData_Tdata"><th>T/[K]</th>
+<td>500</td><td>1000</td><td>1500</td><td>2000</td>
+</tr><tr class="KineticsData_kdata"><th>log<sub>10</sub>(k/[mole,m,s])
+    <td>-0.7</td><td>+2.7</td><td>+4.2</td><td>+5.1</td>
+</tr></table><span class='KineticsData_repr'>Arrhenius(A=(1.09301e-08,'m^3/(mol*s)'), n=4.26764, Ea=(40.8373,'kJ/mol'), T0=(1,'K'), comment="""Estimated using an average for rate rule [C_sec;C_pri_rad]
+Euclidian distance = 0
+Multiplied by reaction path degeneracy 4.0
+family: H_Abstraction""")</span></td>
+</tr>
+<tr class="energy H_Abstraction hide_energy">
+    <td></td>
+    <td colspan="3"><b>H298 (kcal/mol)</b> = -1.10
+    <br><b>S298 (cal/mol*K)</b> = -1.10
+    <br><b>G298 (kcal/mol)</b> = -0.77</td>
+    <td></td>
+</tr>
+<tr class="chemkin H_Abstraction hide_chemkin">
+    <td></td>
+    <td colspan="4">! Template reaction: H_Abstraction
+! Flux pairs: CH2F(4), CH3F-V1(1); C2H4F2(9), C2H3F2(11); 
+! Estimated using an average for rate rule [C_sec;C_pri_rad]
+! Euclidian distance = 0
+! Multiplied by reaction path degeneracy 4.0
+! family: H_Abstraction
+CH2F(4)+C2H4F2(9)=CH3F-V1(1)+C2H3F2(11)             1.093010e-02 4.268     9.760    
+</td>
+</tr>
+</tbody>
+
+
+</table>
+
+</body>
+
+</html>

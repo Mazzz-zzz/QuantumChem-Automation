@@ -1,0 +1,81 @@
+Global RMG Settings:
+   database.directory   = /home/akhalilov/.conda/envs/prepackaged_rmg_env/share/rmgdatabase (from /home/akhalilov/.conda/envs/prepackaged_rmg_env/lib/python3.7/site-packages/rmgpy/rmgrc)
+   test_data.directory  = /home/akhalilov/.conda/envs/prepackaged_rmg_env/lib/python3.7/site-packages/rmgpy/test_data (Default, relative to RMG-Py source code)
+RMG execution initiated at Thu May 22 22:35:43 2025
+
+#########################################################
+# RMG-Py - Reaction Mechanism Generator in Python       #
+# Version: 3.1.0                                        #
+# Authors: RMG Developers (rmg_dev@mit.edu)             #
+# P.I.s:   William H. Green (whgreen@mit.edu)           #
+#          Richard H. West (r.west@neu.edu)             #
+# Website: http://reactionmechanismgenerator.github.io/ #
+#########################################################
+
+Reading input file "/home/akhalilov/GaussianJobCreator/AUTOMATION-CENTER/rmg_jobs/rmg_input_C2F5SO3H.py"...
+# Data sources
+database(
+    thermoLibraries = ['primaryThermoLibrary', 'fluorine', 'thermo'],
+    reactionLibraries = [],
+    seedMechanisms = [],
+    kineticsDepositories = ['training'],
+    kineticsFamilies = 'default',
+    kineticsEstimator = 'rate rules',
+)
+
+# List of species
+species(
+    label='C2F5SO3H',
+    reactive=True,
+    structure=SMILES("C(C(F)(F)S(=O)(=O)O)(F)(F)F"),
+)
+
+# Reaction systems
+simpleReactor(
+    temperature=(1350,'K'),
+    pressure=(1.0,'bar'),
+    initialMoleFractions={
+        "C2F5SO3H": 1.0,
+    },
+    terminationConversion={
+        "C2F5SO3H": 0.7,
+    },
+    terminationTime=(1e6,'s'),
+)
+
+simulator(
+    atol=1e-16,
+    rtol=1e-8,
+)
+
+model(
+    toleranceKeepInEdge=0.0,
+    toleranceMoveToCore=0.1,
+    toleranceInterruptSimulation=0.1,
+    maximumEdgeSpecies=100000,
+    filterReactions=True,
+)
+
+options(
+    units='si',
+    generateOutputHTML=True,
+    generatePlots=True,
+    saveEdgeSpecies=True,
+    saveSimulationProfiles=True,
+) 
+Warning: Generate Output HTML option was turned on. Note that this will slow down model generation.
+Warning: Edge species saving was turned on. This will slow down model generation for large simulations.
+
+Loading transport library from GRI-Mech.py in /home/akhalilov/.conda/envs/prepackaged_rmg_env/share/rmgdatabase/transport/libraries...
+Loading transport library from NOx2018.py in /home/akhalilov/.conda/envs/prepackaged_rmg_env/share/rmgdatabase/transport/libraries...
+Loading transport library from OneDMinN2.py in /home/akhalilov/.conda/envs/prepackaged_rmg_env/share/rmgdatabase/transport/libraries...
+Loading transport library from PrimaryTransportLibrary.py in /home/akhalilov/.conda/envs/prepackaged_rmg_env/share/rmgdatabase/transport/libraries...
+Loading transport group database from /home/akhalilov/.conda/envs/prepackaged_rmg_env/share/rmgdatabase/transport/groups...
+Loading frequencies group database from /home/akhalilov/.conda/envs/prepackaged_rmg_env/share/rmgdatabase/statmech/groups...
+Loading Platts additivity group database from /home/akhalilov/.conda/envs/prepackaged_rmg_env/share/rmgdatabase/solvation/groups...
+Loading thermodynamics library from primaryThermoLibrary.py in /home/akhalilov/.conda/envs/prepackaged_rmg_env/share/rmgdatabase/thermo/libraries...
+Loading thermodynamics library from fluorine.py in /home/akhalilov/.conda/envs/prepackaged_rmg_env/share/rmgdatabase/thermo/libraries...
+Loading thermodynamics library from thermo.py in /home/akhalilov/.conda/envs/prepackaged_rmg_env/share/rmgdatabase/thermo/libraries...
+Loading thermodynamics group database from /home/akhalilov/.conda/envs/prepackaged_rmg_env/share/rmgdatabase/thermo/groups...
+Adding rate rules from training set in kinetics families...
+Filling in rate rules in kinetics families by averaging...
