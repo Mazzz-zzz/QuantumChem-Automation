@@ -1,0 +1,77 @@
+  Bimolecular  b_8 ! 1472314214191050000002_170170000000000000002
+  Fragment       fr_15 ! 1472314214191050000002 ! [O]=[C][C]([F])([F])[C]([F])([F])[F]
+    RRHO
+      Geometry[angstrom]            9
+        C 1.528480 0.034707 -0.014328
+        O 2.218049 -0.893722 0.095888
+        C -0.035295 -0.028700 -0.017241
+        C -0.583589 0.372747 1.365890
+        F -1.904801 0.317589 1.362716
+        F -0.115181 -0.456951 2.288661
+        F -0.200660 1.606852 1.661367
+        F -0.499186 0.824431 -0.932812
+        F -0.466175 -1.258436 -0.310164
+      Core   RigidRotor
+        SymmetryFactor              1.0
+      End
+      Frequencies[1/cm]             0
+       
+
+      ElectronicLevels[1/cm]        1
+            0.    2
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+  Fragment       fr_16 ! 170170000000000000002 ! [H][O]
+    RRHO
+      Geometry[angstrom]            2
+        O 2.008767 1.244889 -0.001109
+        H 2.979091 1.207997 0.013231
+      Core   RigidRotor
+        SymmetryFactor              1.0
+      End
+      Frequencies[1/cm]             1
+       
+      ElectronicLevels[1/cm]        2
+            0.    2
+          140.    2
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+
+    GroundEnergy[kcal/mol]        109.89
+    End ! Barrierless
+
+  Barrier       {blessname} {wellname} {prodname} 
+    RRHO
+      Stoichiometry C3H1O2F5
+        Core PhaseSpaceTheory
+          ! fr_15 ! 1472314214191050000002  [O]=[C][C]([F])([F])[C]([F])([F])[F]
+      FragmentGeometry[angstrom]            9
+        C 1.528480 0.034707 -0.014328
+        O 2.218049 -0.893722 0.095888
+        C -0.035295 -0.028700 -0.017241
+        C -0.583589 0.372747 1.365890
+        F -1.904801 0.317589 1.362716
+        F -0.115181 -0.456951 2.288661
+        F -0.200660 1.606852 1.661367
+        F -0.499186 0.824431 -0.932812
+        F -0.466175 -1.258436 -0.310164
+
+          ! fr_16 ! 170170000000000000002  [H][O]
+      FragmentGeometry[angstrom]            2
+        O 2.008767 1.244889 -0.001109
+        H 2.979091 1.207997 0.013231
+
+          SymmetryFactor         1
+          PotentialPrefactor[au] 0.6
+          PotentialPowerExponent 6. 
+        End ! Core
+      Frequencies[1/cm]             0
+              
+
+        ElectronicLevels[1/cm]      1
+            0.    1 
+        ZeroEnergy[kcal/mol]      109.89 
+    End ! RRHO
+
+!****************************************
+
