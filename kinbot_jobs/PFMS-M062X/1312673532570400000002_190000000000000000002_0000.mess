@@ -1,0 +1,65 @@
+  Bimolecular  b_3 ! 1312673532570400000002_190000000000000000002
+  Fragment       fr_5 ! 1312673532570400000002 ! [H][O][S]([O])(=[O])=[C]([F])[F]
+    RRHO
+      Geometry[angstrom]            8
+        C 1.845767 -0.583409 1.739374
+        F 3.119767 -0.498704 2.045816
+        F 1.359345 -1.769840 1.991402
+        S 1.445751 0.034601 0.101949
+        O 2.301058 -0.577149 -0.857773
+        O 0.037549 0.016495 0.000554
+        O 1.908657 1.526418 0.292994
+        H 2.780425 1.651857 -0.107567
+      Core   RigidRotor
+        SymmetryFactor              1.0
+      End
+      Frequencies[1/cm]             0
+       
+
+      ElectronicLevels[1/cm]        1
+            0.    2
+      ZeroEnergy[kcal/mol]        0.0
+    End ! RRHO
+    Fragment       fr_6 ! 190000000000000000002
+      Atom
+        Name                        F
+        ElectronicLevels[1/cm]      1
+            0.    2
+      End ! Atom
+
+    GroundEnergy[kcal/mol]        122.18
+    End ! Barrierless
+
+  Barrier       {blessname} {wellname} {prodname} 
+    RRHO
+      Stoichiometry C1H1O3S1F3
+        Core PhaseSpaceTheory
+          ! fr_5 ! 1312673532570400000002  [H][O][S]([O])(=[O])=[C]([F])[F]
+      FragmentGeometry[angstrom]            8
+        C 1.845767 -0.583409 1.739374
+        F 3.119767 -0.498704 2.045816
+        F 1.359345 -1.769840 1.991402
+        S 1.445751 0.034601 0.101949
+        O 2.301058 -0.577149 -0.857773
+        O 0.037549 0.016495 0.000554
+        O 1.908657 1.526418 0.292994
+        H 2.780425 1.651857 -0.107567
+
+          ! fr_6 ! 190000000000000000002  [F]
+      FragmentGeometry[angstrom]            1
+        F -0.570942 0.618588 -0.959963
+
+          SymmetryFactor         1
+          PotentialPrefactor[au] 0.6
+          PotentialPowerExponent 6. 
+        End ! Core
+      Frequencies[1/cm]             0
+       
+
+        ElectronicLevels[1/cm]      1
+            0.    1 
+        ZeroEnergy[kcal/mol]      122.18 
+    End ! RRHO
+
+!****************************************
+
